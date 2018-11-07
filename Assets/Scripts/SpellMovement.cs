@@ -19,6 +19,7 @@ public class SpellMovement : MonoBehaviour {
 		
 		if (other.transform.tag == "Target") {
 			other.transform.SendMessage ("Death", "Spell");
+            SelfDestruct();
 		}
 	}
 
