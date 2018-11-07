@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class SpellMovement : MonoBehaviour {
 
@@ -21,7 +22,19 @@ public class SpellMovement : MonoBehaviour {
 			other.transform.SendMessage ("Death", "Spell");
             SelfDestruct();
 		}
-	}
+
+        if (other.transform.tag == "Enemy")
+        {
+            other.transform.SendMessage("GetHit", "Spell");
+            SelfDestruct();
+        }
+
+        if (other.transform.tag == "Player")
+        {
+            Debug.Log("You Died.");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
 
     void Move()
     {
