@@ -36,3 +36,6 @@ Double click the build executable from the previous step to launch the game!
 
 ## Theme
 ![Theme image](./Images/theme.png)
+
+## Class Hierarchy
+![Hierarchy image](./Images/hierarchy.png)
