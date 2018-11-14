@@ -1,37 +1,35 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
-public class LightningMovement : MonoBehaviour
+public class EnemySpellMovement : MonoBehaviour
 {
 
     private float speed;
 
     void Start()
     {
-        speed = 0.0f;
+        speed = 5.0f;
         Invoke("SelfDestruct", 10.0f);
     }
 
     void Update()
     {
-        if (OVRInput.GetUp(OVRInput.Button.SecondaryIndexTrigger))
-        {
-            this.transform.SetParent(null);
-            speed = 10.0f;
-        }
         Move();
     }
 
     void OnTriggerEnter(Collider other)
     {
-
-        if (other.transform.tag == "Target")
-        {
-            other.transform.SendMessage("Death", "Lightning");
-        }
-        else if (other.transform.tag == "Enemy")
+        if (other.transform.tag == "Shield")
         {
             other.transform.SendMessage("GetHit", "Spell");
+            SelfDestruct();
+        }
+
+        else if (other.transform.tag == "Player")
+        {
+            Debug.Log("You Died.");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 

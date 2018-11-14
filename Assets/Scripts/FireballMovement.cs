@@ -29,6 +29,15 @@ public class FireballMovement : MonoBehaviour
             }
             SelfDestruct();
         }
+        else if (other.transform.tag == "Enemy")
+        {
+            Collider[] explosionVictims = Physics.OverlapSphere(this.transform.position, 2.0F);
+            foreach (Collider victim in explosionVictims)
+            {
+                victim.transform.SendMessage("GetHit", "Spell");
+            }
+            SelfDestruct();
+        }
     }
 
     void Move()

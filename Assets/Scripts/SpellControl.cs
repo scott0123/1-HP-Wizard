@@ -8,6 +8,7 @@ public class SpellControl : MonoBehaviour {
     public GameObject fireball;
     public GameObject lightning;
 	public GameObject wand;
+    public GameObject shield;
 
 	private float wandLength;
 
@@ -21,7 +22,8 @@ public class SpellControl : MonoBehaviour {
 
     void DetectTrigger()
     {
-		if(OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger)){ // this might need changing, Button.PrimaryThumbStick
+		if(OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger)) // this might need changing, Button.PrimaryThumbStick
+        { 
 			CastLightning();
         } else if(OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
         {
@@ -29,6 +31,10 @@ public class SpellControl : MonoBehaviour {
         } else if(OVRInput.GetDown(OVRInput.Button.PrimaryThumbstick))
         {
             CastSpell();
+        } else if (OVRInput.GetDown(OVRInput.Button.SecondaryThumbstick))
+        {
+            print("shield");
+            CastShield();
         }
     }
     
@@ -70,5 +76,10 @@ public class SpellControl : MonoBehaviour {
         {
             Debug.Log("You forgot to attach a casting sound to SpellControl!");
         }
+    }
+
+    void CastShield()
+    {
+        shield.transform.SendMessage("ActivateShield");
     }
 }

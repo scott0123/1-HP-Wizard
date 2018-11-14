@@ -17,22 +17,15 @@ public class SpellMovement : MonoBehaviour {
     }
 
 	void OnTriggerEnter(Collider other){
-		
-		if (other.transform.tag == "Target") {
+        if (other.transform.tag == "Target") {
 			other.transform.SendMessage ("Death", "Spell");
-            SelfDestruct();
-		}
-
-        if (other.transform.tag == "Enemy")
-        {
-            other.transform.SendMessage("GetHit", "Spell");
             SelfDestruct();
         }
 
-        if (other.transform.tag == "Player")
+        else if (other.transform.tag == "Enemy")
         {
-            Debug.Log("You Died.");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            other.transform.SendMessage("GetHit", "Spell");
+            SelfDestruct();
         }
     }
 
