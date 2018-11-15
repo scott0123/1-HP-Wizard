@@ -13,6 +13,7 @@ public class GestureCollector : MonoBehaviour {
     private List<float> z = new List<float>();
     private List<NamedGesture> data = new List<NamedGesture>
     private bool collecting = false;
+    private Vector3 gestureStartingPosition;
 
     void Start() {
         collecting = false;
@@ -40,12 +41,13 @@ public class GestureCollector : MonoBehaviour {
     void Collect() {
         if (!collecting) {
             collecting = true;
+            gestureStartingPosition = wand.position;
             x.Clear();
             y.Clear();
         }
-        x.Add(wand.localPosition.x)
-        y.Add(wand.localPosition.y)
-        z.Add(wand.localPosition.z)
+        x.Add(wand.position.x - gestureStartingPosition.x)
+        y.Add(wand.position.y - gestureStartingPosition.y)
+        z.Add(wand.position.z - gestureStartingPosition.z)
     }
 
     void LabelTrue() {
