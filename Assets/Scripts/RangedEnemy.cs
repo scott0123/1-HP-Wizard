@@ -21,8 +21,9 @@ public class RangedEnemy : Enemy {
         if (fireTimer <= 0)
         {
             //fire (temp solution)
-            Vector3 fireLocation = gameObject.transform.position + gameObject.transform.up * (firePositionOffset.y) + gameObject.transform.up * (firePositionOffset.z);
-            GameObject instance = Instantiate(spell, fireLocation, Quaternion.Euler(player.transform.position - fireLocation) * gameObject.transform.rotation);
+            Vector3 fireLocation = gameObject.transform.position + gameObject.transform.up * (firePositionOffset.y) + gameObject.transform.forward * (firePositionOffset.z);
+            Vector3 directionVect = player.transform.position - fireLocation;
+            GameObject instance = Instantiate(spell, fireLocation, Quaternion.LookRotation(directionVect));
             fireTimer = fireInterval;
         }
     }

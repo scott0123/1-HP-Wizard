@@ -22,6 +22,14 @@ public class SpellMovement : MonoBehaviour {
             SelfDestruct();
         }
 
+        if (other.transform.tag == "Player")
+        {
+            //temporary, for testing
+            SelfDestruct();
+            Debug.Log("You Died.");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
         else if (other.transform.tag == "Enemy")
         {
             other.transform.SendMessage("GetHit", "Spell");

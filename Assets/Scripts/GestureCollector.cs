@@ -15,6 +15,7 @@ public class GestureCollector : MonoBehaviour {
     private List<NamedGesture> data = new List<NamedGesture>();
     private bool collecting = false;
     private Vector3 gestureStartingPosition;
+    private Quaternion gestureStartingRotation;
 
     void Start() {
         collecting = false;
@@ -47,13 +48,20 @@ public class GestureCollector : MonoBehaviour {
             Debug.Log("Started collecting");
             collecting = true;
             gestureStartingPosition = wand.position;
+            gestureStartingRotation = wand.rotation;
             x.Clear();
             y.Clear();
             z.Clear();
         }
-        x.Add(wand.position.x - gestureStartingPosition.x);
+        //temporary solution -- data points relative to wand rotation
+        Vector3 dataVect = wand.position - gestureStartingPosition;
+        dataVect = Quaternion.Inverse(gestureStartingRotation) * dataVect;
+        x.Add(dataVect.x);
+        y.Add(dataVect.y);
+        z.Add(dataVect.z);
+        /*x.Add(wand.position.x - gestureStartingPosition.x);
         y.Add(wand.position.y - gestureStartingPosition.y);
-        z.Add(wand.position.z - gestureStartingPosition.z);
+        z.Add(wand.position.z - gestureStartingPosition.z);*/
     }
 
     void LabelTrue() {
