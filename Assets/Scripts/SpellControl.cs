@@ -66,8 +66,7 @@ public class SpellControl : MonoBehaviour {
     {
         Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
         GameObject instance = Instantiate(lightning, wand.transform.position + wand.transform.up * (wandLength / 2 + 0.1f), wand.transform.rotation * wand_quat);
-        Transform right_hand = this.transform.Find("LocalAvatar/hand_right");
-        instance.transform.SetParent(right_hand);
+        instance.transform.SetParent(wand.transform);
         if (castSound != null)
         {
             AudioSource.PlayClipAtPoint(castSound, instance.transform.position, 0.5f);

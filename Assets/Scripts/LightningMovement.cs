@@ -19,6 +19,10 @@ public class LightningMovement : MonoBehaviour
             this.transform.SetParent(null);
             speed = 10.0f;
         }
+    }
+
+    private void FixedUpdate()
+    {
         Move();
     }
 

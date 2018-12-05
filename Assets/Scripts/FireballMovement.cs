@@ -12,7 +12,7 @@ public class FireballMovement : MonoBehaviour
         Invoke("SelfDestruct", 10.0f);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         Move();
     }

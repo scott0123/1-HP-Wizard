@@ -28,7 +28,7 @@ public class ShieldScript : MonoBehaviour {
         {
             timeLeft -= Time.deltaTime;
             float colorRatio = timeLeft / 20.0f;
-            this.GetComponent<Renderer>().material.color = new Color(colorRatio, colorRatio, colorRatio);
+            this.GetComponent<Renderer>().material.color = new Color(0, 0, 1, colorRatio);
         } else
         {
             this.GetComponent<Renderer>().enabled = false;
