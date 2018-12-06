@@ -2,30 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.SceneManagement;
 
-public class MeleeEnemy : Enemy {
-
-    protected double attackDistance;
-
-    protected override void Attack()
-    {
-        //End game round
-        Debug.Log("You Died.");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-    protected override void GetHit(string source)
-    {
-        hp--;
-    }
-
+public class Imp : MeleeEnemy {
     protected override void Move()
     {
         agent.destination = player.transform.position;
         if ((this.transform.position - player.transform.position).magnitude <= attackDistance)
         {
             Attack();
+        } 
+
+        if (agent.baseOffset > 1.0f)
+        {
+            agent.baseOffset -= 0.05f;
         }
     }
 
@@ -33,6 +22,7 @@ public class MeleeEnemy : Enemy {
     void Start () {
         agent = GetComponent<NavMeshAgent>();
         agent.destination = player.transform.position;
+        agent.baseOffset = 3.0f;
 
         attackDistance = 1.0f;
         hp = 1;
@@ -46,5 +36,5 @@ public class MeleeEnemy : Enemy {
         {
             gameObject.SetActive(false);
         }
-	}
+    }
 }
