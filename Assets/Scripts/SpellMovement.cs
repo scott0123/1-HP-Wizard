@@ -35,6 +35,11 @@ public class SpellMovement : MonoBehaviour {
             other.transform.SendMessage("GetHit", "Spell");
             SelfDestruct();
         }
+
+        else if (other.transform.tag == "Terrain")
+        {
+            SelfDestruct();
+        }
     }
 
     void Move()

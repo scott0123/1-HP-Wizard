@@ -12,10 +12,10 @@ public class Imp : MeleeEnemy {
             Attack();
         } 
 
-        if (agent.baseOffset > 1.0f)
-        {
-            agent.baseOffset -= 0.05f;
-        }
+        //if (agent.baseOffset > 1.0f)
+        //{
+        //    agent.baseOffset -= 0.05f;
+        //}
     }
 
     // Use this for initialization

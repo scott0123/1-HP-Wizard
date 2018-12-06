@@ -31,6 +31,11 @@ public class EnemySpellMovement : MonoBehaviour
             Debug.Log("You Died.");
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+
+        else if (other.transform.tag == "Terrain")
+        {
+            SelfDestruct();
+        }
     }
 
     void Move()

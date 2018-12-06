@@ -37,6 +37,11 @@ public class LightningMovement : MonoBehaviour
         {
             other.transform.SendMessage("GetHit", "Spell");
         }
+        else if (other.transform.tag == "Terrain")
+        {
+            SelfDestruct();
+        }
+
     }
 
     void Move()
