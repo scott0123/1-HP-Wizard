@@ -6,7 +6,7 @@ using System;
 
 public class GestureCollector : MonoBehaviour {
 
-    public Transform wand;
+    public Transform wandTip;
     public string label;
 
     private List<float> x = new List<float>();
@@ -47,30 +47,30 @@ public class GestureCollector : MonoBehaviour {
         if (!collecting) {
             Debug.Log("Started collecting");
             collecting = true;
-            gestureStartingPosition = wand.position;
-            gestureStartingRotation = wand.rotation;
+            gestureStartingPosition = wandTip.position;
+            gestureStartingRotation = wandTip.rotation;
             x.Clear();
             y.Clear();
             z.Clear();
         }
-        //temporary solution -- data points relative to wand rotation
-        Vector3 dataVect = wand.position - gestureStartingPosition;
+        //temporary solution -- data points relative to wandTip rotation
+        Vector3 dataVect = wandTip.position - gestureStartingPosition;
         dataVect = Quaternion.Inverse(gestureStartingRotation) * dataVect;
         x.Add(dataVect.x);
         y.Add(dataVect.y);
         z.Add(dataVect.z);
-        /*x.Add(wand.position.x - gestureStartingPosition.x);
-        y.Add(wand.position.y - gestureStartingPosition.y);
-        z.Add(wand.position.z - gestureStartingPosition.z);*/
+        /*x.Add(wandTip.position.x - gestureStartingPosition.x);
+        y.Add(wandTip.position.y - gestureStartingPosition.y);
+        z.Add(wandTip.position.z - gestureStartingPosition.z);*/
     }
 
     void LabelTrue() {
         NamedGesture ng = new NamedGesture();
         ng.name = label;
         ng.gesture = new List<List<float>>();
-        ng.gesture.Add(x);
-        ng.gesture.Add(y);
-        ng.gesture.Add(z);
+        ng.gesture.Add(new List<float>(x.ToArray()));
+        ng.gesture.Add(new List<float>(y.ToArray()));
+        ng.gesture.Add(new List<float>(z.ToArray()));
         data.Add(ng);
     }
     void LabelFalse() {
@@ -78,9 +78,9 @@ public class GestureCollector : MonoBehaviour {
         ng.name = "!";
         ng.name += label;
         ng.gesture = new List<List<float>>();
-        ng.gesture.Add(x);
-        ng.gesture.Add(y);
-        ng.gesture.Add(z);
+        ng.gesture.Add(new List<float>(x.ToArray()));
+        ng.gesture.Add(new List<float>(y.ToArray()));
+        ng.gesture.Add(new List<float>(z.ToArray()));
         data.Add(ng);
     }
     void Save() {
