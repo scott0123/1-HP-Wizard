@@ -6,7 +6,9 @@ using System;
 
 public class GestureCollector : MonoBehaviour {
 
-    public Transform wandTip;
+    public GameObject wandTip;
+    public GameObject ephemeralTrail;
+    public GameObject gestureTrail;
     public string label;
 
     private List<float> x = new List<float>();
@@ -17,6 +19,10 @@ public class GestureCollector : MonoBehaviour {
     private Vector3 gestureStartingPosition;
     private Quaternion gestureStartingRotation;
 
+    // cloned trails that we spawn
+    private GameObject ephemeralClone;
+    private GameObject gestureClone;
+
     void Start() {
         collecting = false;
     }
@@ -26,7 +32,7 @@ public class GestureCollector : MonoBehaviour {
         if (OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger) > 0) { // Right, Side-button
             Collect();
         } else {
-            collecting = false;
+            StopCollecting();
         }
         
         if (OVRInput.GetDown(OVRInput.Button.One)) { // Right, A
@@ -47,21 +53,74 @@ public class GestureCollector : MonoBehaviour {
         if (!collecting) {
             Debug.Log("Started collecting");
             collecting = true;
-            gestureStartingPosition = wandTip.position;
-            gestureStartingRotation = wandTip.rotation;
+            gestureStartingPosition = wandTip.transform.position;
+            gestureStartingRotation = wandTip.transform.rotation;
             x.Clear();
             y.Clear();
             z.Clear();
+            ephemeralClone = Instantiate(ephemeralTrail, wandTip.transform.position, wandTip.transform.rotation);
+            ephemeralClone.transform.parent = wandTip.transform;
+            gestureClone = Instantiate(gestureTrail, wandTip.transform.position, wandTip.transform.rotation);
+            gestureClone.transform.parent = wandTip.transform;
         }
-        //temporary solution -- data points relative to wandTip rotation
-        Vector3 dataVect = wandTip.position - gestureStartingPosition;
+        //temporary solution -- data points relative to wandTip.transform rotation
+        Vector3 dataVect = wandTip.transform.position - gestureStartingPosition;
         dataVect = Quaternion.Inverse(gestureStartingRotation) * dataVect;
         x.Add(dataVect.x);
         y.Add(dataVect.y);
         z.Add(dataVect.z);
-        /*x.Add(wandTip.position.x - gestureStartingPosition.x);
-        y.Add(wandTip.position.y - gestureStartingPosition.y);
-        z.Add(wandTip.position.z - gestureStartingPosition.z);*/
+        /*x.Add(wandTip.transform.position.x - gestureStartingPosition.x);
+        y.Add(wandTip.transform.position.y - gestureStartingPosition.y);
+        z.Add(wandTip.transform.position.z - gestureStartingPosition.z);*/
+    }
+
+    void StopCollecting()
+    {
+        if (collecting)
+        {
+            collecting = false;
+            Destroy(ephemeralClone);
+            GameObject referenceToGestureClone = gestureClone;
+            UnnamedGesture g = new UnnamedGesture();
+            g.gesture = new List<List<float>>();
+            g.gesture.Add(new List<float>(x.ToArray()));
+            g.gesture.Add(new List<float>(y.ToArray()));
+            g.gesture.Add(new List<float>(z.ToArray()));
+
+            RecognizeGesture(g, referenceToGestureClone);
+        }
+    }
+    void RecognizeGesture(UnnamedGesture g, GameObject trail)
+    {
+        // recognize the gesture
+        //TODO
+        bool recognized = true;
+        // either glow the trail or get rid of it
+        TrailRenderer tr = trail.GetComponent<TrailRenderer>();
+        tr.emitting = false;
+        if (recognized)
+        {
+            tr.startColor = new Color(0, 1, 0, 1);
+            tr.endColor = new Color(0, 1, 0, 1);
+        }
+        StartCoroutine(DestroyTrail(trail));
+    }
+    IEnumerator DestroyTrail(GameObject trail)
+    {
+        yield return new WaitForSeconds(1.0f);
+        TrailRenderer tr = trail.GetComponent<TrailRenderer>();
+        float alpha = tr.startColor.a;
+        while (alpha > 0.01f)
+        {
+            alpha -= 0.01f;
+            float r = tr.startColor.r;
+            float g = tr.startColor.g;
+            float b = tr.startColor.b;
+            tr.startColor = new Color(r, g, b, alpha);
+            tr.endColor = new Color(r, g, b, alpha);
+            yield return new WaitForSeconds(0.01f);
+        }
+        Destroy(trail);
     }
 
     void LabelTrue() {
@@ -134,7 +193,12 @@ public class GestureCollector : MonoBehaviour {
 }
 
 [Serializable]
-public class NamedGesture {
+public class NamedGesture
+{
     public string name;
+    public List<List<float>> gesture;
+}
+public class UnnamedGesture
+{
     public List<List<float>> gesture;
 }
