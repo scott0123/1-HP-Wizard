@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System;
+using UnityEngine.UI;
 
 public class GestureCollector : MonoBehaviour {
 
@@ -10,6 +11,10 @@ public class GestureCollector : MonoBehaviour {
     public GameObject ephemeralTrail;
     public GameObject gestureTrail;
     public string label;
+    public Text ui;
+
+    private int positive;
+    private int negative;
 
     private List<float> x = new List<float>();
     private List<float> y = new List<float>();
@@ -25,6 +30,8 @@ public class GestureCollector : MonoBehaviour {
 
     void Start() {
         collecting = false;
+        positive = 0;
+        negative = 0;
     }
 
     void Update() {
@@ -124,6 +131,8 @@ public class GestureCollector : MonoBehaviour {
     }
 
     void LabelTrue() {
+        positive += 1;
+        ui.text = "Pos: " + positive + "\nNeg: " + negative;
         NamedGesture ng = new NamedGesture();
         ng.name = label;
         ng.gesture = new List<List<float>>();
@@ -133,6 +142,8 @@ public class GestureCollector : MonoBehaviour {
         data.Add(ng);
     }
     void LabelFalse() {
+        negative += 1;
+        ui.text = "Pos: " + positive + "\nNeg: " + negative;
         NamedGesture ng = new NamedGesture();
         ng.name = "!";
         ng.name += label;
