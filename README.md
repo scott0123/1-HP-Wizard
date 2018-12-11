@@ -5,6 +5,9 @@
 
 The player will have to react quickly and strategically since they only have one life.
 
+## Game Design
+https://docs.google.com/document/d/1hs4El7qzT2vCHhaPN9zTqvtF0LksF_KemcwoVwB_Los/edit?usp=sharing
+
 ## Getting Started
 ### Prerequisites
 * Unity 2017.3.0f3
