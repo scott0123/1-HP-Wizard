@@ -27,6 +27,7 @@ public class MeleeEnemy : Enemy {
         {
             Attack();
         }
+        CheckDead();
     }
 
     // Use this for initialization
@@ -41,10 +42,5 @@ public class MeleeEnemy : Enemy {
 	// Update is called once per frame
 	void Update () {
         Move();
-
-        if (hp <= 0)
-        {
-            gameObject.SetActive(false);
-        }
 	}
 }

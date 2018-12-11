@@ -21,6 +21,15 @@ public abstract class Enemy : MoveableObject {
 
     protected abstract void Move();
 
+    protected void CheckDead()
+    {
+        if (hp <= 0)
+        {
+            gameObject.SetActive(false);
+            EnemyWizard.minionCount--;
+        }
+    }
+
     protected abstract void Attack();
 
     protected abstract void GetHit(string source);

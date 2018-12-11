@@ -17,10 +17,5 @@ public class Bear : MeleeEnemy {
 	// Update is called once per frame
 	void Update () {
         Move();
-
-        if (hp <= 0)
-        {
-            gameObject.SetActive(false);
-        }
     }
 }
