@@ -15,18 +15,14 @@ public class MeleeEnemy : Enemy {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    protected override void GetHit(string source)
-    {
-        hp--;
-    }
-
     protected override void Move()
     {
-        agent.destination = player.transform.position;
         if ((this.transform.position - player.transform.position).magnitude <= attackDistance)
         {
             Attack();
         }
+        CheckDead();
+        agent.destination = player.transform.position;
     }
 
     // Use this for initialization
@@ -34,17 +30,12 @@ public class MeleeEnemy : Enemy {
         agent = GetComponent<NavMeshAgent>();
         agent.destination = player.transform.position;
 
-        attackDistance = 1.0f;
+        attackDistance = 2.0f;
         hp = 1;
     }
 	
 	// Update is called once per frame
 	void Update () {
         Move();
-
-        if (hp <= 0)
-        {
-            gameObject.SetActive(false);
-        }
 	}
 }

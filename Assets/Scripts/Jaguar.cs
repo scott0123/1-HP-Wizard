@@ -10,20 +10,15 @@ public class Jaguar : MeleeEnemy {
     {
         agent = GetComponent<NavMeshAgent>();
         agent.destination = player.transform.position;
-        agent.speed = 2.0f;
+        agent.speed *= 2;
 
-        attackDistance = 1.0f;
-        hp = 3;
+        attackDistance = 2.0f;
+        hp = 5;
     }
 
     // Update is called once per frame
     void Update()
     {
         Move();
-
-        if (hp <= 0)
-        {
-            gameObject.SetActive(false);
-        }
     }
 }

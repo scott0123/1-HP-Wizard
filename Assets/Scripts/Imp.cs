@@ -7,15 +7,16 @@ public class Imp : MeleeEnemy {
     protected override void Move()
     {
         agent.destination = player.transform.position;
-        if ((this.transform.position - player.transform.position).magnitude <= attackDistance)
+        float player_dist = (this.transform.position - player.transform.position).magnitude;
+        if (player_dist <= attackDistance)
         {
             Attack();
         } 
 
-        //if (agent.baseOffset > 1.0f)
-        //{
-        //    agent.baseOffset -= 0.05f;
-        //}
+        if (agent.baseOffset > 0.5f && player_dist < 5 * attackDistance)
+        {
+            agent.baseOffset -= Time.deltaTime;
+        }
     }
 
     // Use this for initialization
@@ -24,17 +25,13 @@ public class Imp : MeleeEnemy {
         agent.destination = player.transform.position;
         agent.baseOffset = 3.0f;
 
-        attackDistance = 1.0f;
+        attackDistance = 1.5f;
         hp = 1;
     }
 	
 	// Update is called once per frame
 	void Update () {
         Move();
-
-        if (hp <= 0)
-        {
-            gameObject.SetActive(false);
-        }
+        CheckDead();
     }
 }

@@ -13,15 +13,29 @@ public class SpellControl : MonoBehaviour {
     public GameObject wand;
     public GameObject shield;
 
-    private float wandLength;
+	private float wandLength;
+    private int mana;
 
     private string primedSpell = "";
 
-    void Start() {
+    private double manaRegenInterval;
+    private double manaRegenTimer;
 
-        wandLength = 0.15f;
-    }
-    void Update() {
+    void Start(){
+        mana = 20;
+		wandLength = 0.15f;
+
+        manaRegenInterval = 1.0f;
+        manaRegenTimer = 1.0f;
+}
+	void Update() {
+        manaRegenTimer -= Time.deltaTime;
+        if (manaRegenTimer <= 0.0f)
+        {
+            if (mana < 20)
+                mana++;
+            manaRegenTimer = manaRegenInterval;
+        }
         DetectTrigger();
     }
 
@@ -60,15 +74,23 @@ public class SpellControl : MonoBehaviour {
         }
 
     }
+    
+	void CastSpell() {
+        if (mana >= 1)
+        {
+            Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
+            GameObject instance = Instantiate(spell, wand.transform.position + wand.transform.up * (wandLength / 2 + 0.1f), wand.transform.rotation * wand_quat);
+            if (castSound != null)
+            {
+                AudioSource.PlayClipAtPoint(castSound, instance.transform.position, 0.5f);
+            }
+            else
+            {
+                Debug.Log("You forgot to attach a casting sound to SpellControl!");
+            }
 
-    void CastSpell() {
-		Quaternion wand_quat = Quaternion.Euler (new Vector3(-30.0f, 0, 0));
-		GameObject instance = Instantiate(spell, wand.transform.position + wand.transform.up * (wandLength / 2 + 0.1f), wand.transform.rotation * wand_quat);
-		if (castSound != null) {
-			AudioSource.PlayClipAtPoint (castSound, instance.transform.position, 0.5f);
-		} else {
-			Debug.Log("You forgot to attach a casting sound to SpellControl!");
-		}
+            mana--;
+        }
     }
 
     void CastAir()
@@ -87,15 +109,20 @@ public class SpellControl : MonoBehaviour {
 
     void CastFireball()
     {
-        Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
-        GameObject instance = Instantiate(fireball, wand.transform.position + wand.transform.up * (wandLength / 2 + 0.1f), wand.transform.rotation * wand_quat);
-        if (castSound != null)
+        if (mana >= 5)
         {
-            AudioSource.PlayClipAtPoint(castSound, instance.transform.position, 0.5f);
-        }
-        else
-        {
-            Debug.Log("You forgot to attach a casting sound to SpellControl!");
+            Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
+            GameObject instance = Instantiate(fireball, wand.transform.position + wand.transform.up * (wandLength / 2 + 0.1f), wand.transform.rotation * wand_quat);
+            if (castSound != null)
+            {
+                AudioSource.PlayClipAtPoint(castSound, instance.transform.position, 0.5f);
+            }
+            else
+            {
+                Debug.Log("You forgot to attach a casting sound to SpellControl!");
+            }
+
+            mana -= 5;
         }
     }
 
@@ -129,21 +156,30 @@ public class SpellControl : MonoBehaviour {
 
     void CastLightning()
     {
-        Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
-        GameObject instance = Instantiate(lightning, wand.transform.position + wand.transform.up * (wandLength / 2 + 0.1f), wand.transform.rotation * wand_quat);
-        instance.transform.SetParent(wand.transform);
-        if (castSound != null)
+        if (mana >= 10)
         {
-            AudioSource.PlayClipAtPoint(castSound, instance.transform.position, 0.5f);
-        }
-        else
-        {
-            Debug.Log("You forgot to attach a casting sound to SpellControl!");
+            Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
+            GameObject instance = Instantiate(lightning, wand.transform.position + wand.transform.up * (wandLength / 2 + 0.1f), wand.transform.rotation * wand_quat);
+            instance.transform.SetParent(wand.transform);
+            if (castSound != null)
+            {
+                AudioSource.PlayClipAtPoint(castSound, instance.transform.position, 0.5f);
+            }
+            else
+            {
+                Debug.Log("You forgot to attach a casting sound to SpellControl!");
+            }
+
+            mana -= 10;
         }
     }
 
     void CastShield()
     {
-        shield.transform.SendMessage("ActivateShield");
+        if (mana >= 5)
+        {
+            shield.transform.SendMessage("ActivateShield");
+            mana -= 5;
+        }
     }
 }

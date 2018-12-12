@@ -23,16 +23,11 @@ public class RangedEnemy : Enemy {
             //fire (temp solution)
             Vector3 fireLocation = gameObject.transform.position + gameObject.transform.up * (firePositionOffset.y) + gameObject.transform.forward * (firePositionOffset.z);
             Vector3 directionVect = player.transform.position - fireLocation;
-            GameObject instance = Instantiate(spell, fireLocation, Quaternion.LookRotation(directionVect) * Quaternion.Lerp(Quaternion.identity, Random.rotation, Random.Range(0.0f, 0.3f)));
+            GameObject instance = Instantiate(spell, fireLocation, Quaternion.LookRotation(directionVect) * Quaternion.Lerp(Quaternion.identity, Random.rotation, Random.Range(0.0f, 0.02f)));
             fireTimer = fireInterval;
         }
     }
-
-    protected override void GetHit(string source)
-    {
-        hp--;
-    }
-
+    
     protected override void Move()
     {
         if ((this.transform.position - player.transform.position).magnitude <= attackDistance)
@@ -43,6 +38,7 @@ public class RangedEnemy : Enemy {
             agent.destination = player.transform.position;
             fireTimer = fireInterval;
         }
+        CheckDead();
     }
 
     // Use this for initialization
@@ -64,10 +60,5 @@ public class RangedEnemy : Enemy {
     void Update()
     {
         Move();
-
-        if (hp <= 0)
-        {
-            gameObject.SetActive(false);
-        }
     }
 }
