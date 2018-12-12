@@ -10,14 +10,15 @@ public class EnemyWizard : RangedEnemy {
     void Start()
     {
         //temporary code
-        minionCount = 4;
+        //minionCount = 6;
         //end tmpcode
         agent = GetComponent<NavMeshAgent>();
         agent.destination = player.transform.position;
+        agent.baseOffset = 1.0f;
 
-        hp = 20;
+        hp = 30;
 
-        attackDistance = 15.0f;
+        attackDistance = 38.0f;
 
         fireInterval = 5.0f;
         fireTimer = fireInterval;

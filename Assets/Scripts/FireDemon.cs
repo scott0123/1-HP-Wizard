@@ -11,7 +11,7 @@ public class FireDemon : RangedEnemy {
         agent = GetComponent<NavMeshAgent>();
         agent.destination = player.transform.position;
 
-        hp = 1;
+        hp = 20;
 
         attackDistance = 15.0f;
 

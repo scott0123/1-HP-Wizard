@@ -10,7 +10,7 @@ public class Bear : MeleeEnemy {
         agent = GetComponent<NavMeshAgent>();
         agent.destination = player.transform.position;
 
-        attackDistance = 1.0f;
+        attackDistance = 1.7f;
         hp = 10;
     }
 	

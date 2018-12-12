@@ -35,7 +35,7 @@ public class LightningMovement : MonoBehaviour
         }
         else if (other.transform.tag == "Enemy")
         {
-            other.transform.SendMessage("GetHit", "Spell");
+            other.transform.SendMessage("GetHit", "Lightning");
         }
         else if (other.transform.tag == "Terrain")
         {

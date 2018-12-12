@@ -25,7 +25,7 @@ public class Imp : MeleeEnemy {
         agent.destination = player.transform.position;
         agent.baseOffset = 3.0f;
 
-        attackDistance = 1.0f;
+        attackDistance = 1.5f;
         hp = 1;
     }
 	

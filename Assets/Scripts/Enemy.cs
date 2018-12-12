@@ -32,5 +32,19 @@ public abstract class Enemy : MoveableObject {
 
     protected abstract void Attack();
 
-    protected abstract void GetHit(string source);
+    protected void GetHit(string source)
+    {
+        if (source == "Spell")
+        {
+            hp--;
+        }
+        else if (source == "Lightning")
+        {
+            hp -= 10;
+        }
+        else
+        {
+            hp -= 5;
+        }
+    }
 }

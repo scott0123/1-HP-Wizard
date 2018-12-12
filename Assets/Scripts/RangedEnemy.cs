@@ -27,12 +27,7 @@ public class RangedEnemy : Enemy {
             fireTimer = fireInterval;
         }
     }
-
-    protected override void GetHit(string source)
-    {
-        hp--;
-    }
-
+    
     protected override void Move()
     {
         if ((this.transform.position - player.transform.position).magnitude <= attackDistance)
