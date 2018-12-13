@@ -17,12 +17,19 @@ public class MeleeEnemy : Enemy {
 
     protected override void Move()
     {
-        if ((this.transform.position - player.transform.position).magnitude <= attackDistance)
+        if (frozen <= 0.0f)
         {
-            Attack();
+            if ((this.transform.position - player.transform.position).magnitude <= attackDistance)
+            {
+                Attack();
+            }
+            agent.destination = player.transform.position;
+        } else
+        {
+            frozen -= Time.deltaTime;
+            agent.destination = gameObject.transform.position;
         }
         CheckDead();
-        agent.destination = player.transform.position;
     }
 
     // Use this for initialization

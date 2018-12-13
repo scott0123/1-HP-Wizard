@@ -5,19 +5,17 @@ using UnityEngine.AI;
 
 public class EnemyWizard : RangedEnemy {
     public static int minionCount;
+    private static bool invincible;
 
     // Use this for initialization
     void Start()
     {
-        //temporary code
-        //minionCount = 6;
-        //end tmpcode
         agent = GetComponent<NavMeshAgent>();
         agent.destination = player.transform.position;
-        agent.baseOffset = 1.0f;
+        agent.baseOffset = 1.5f;
 
         hp = 30;
-
+        invincible = true;
         attackDistance = 38.0f;
 
         fireInterval = 5.0f;
@@ -28,10 +26,13 @@ public class EnemyWizard : RangedEnemy {
     // Update is called once per frame
     void Update()
     {
+        if (invincible)
+            hp = 30;
+
         if (minionCount == 0)
         {
             attackDistance = 8.0f;
-
+            invincible = false;
             fireInterval = 1.0f;
             fireTimer = fireInterval;
             minionCount--;

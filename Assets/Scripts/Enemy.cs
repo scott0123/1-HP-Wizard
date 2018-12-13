@@ -8,6 +8,7 @@ public abstract class Enemy : MoveableObject {
     protected int hp;
     protected NavMeshAgent agent;
     public GameObject player;
+    protected double frozen;
 
 	// Use this for initialization
 	void Start () {
@@ -31,6 +32,11 @@ public abstract class Enemy : MoveableObject {
     }
 
     protected abstract void Attack();
+
+    protected void Freeze(string source)
+    {
+        frozen = 5.0f;
+    }
 
     protected void GetHit(string source)
     {

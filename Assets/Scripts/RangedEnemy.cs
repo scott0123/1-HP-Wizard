@@ -27,17 +27,26 @@ public class RangedEnemy : Enemy {
             fireTimer = fireInterval;
         }
     }
-    
+
     protected override void Move()
     {
-        if ((this.transform.position - player.transform.position).magnitude <= attackDistance)
+        if (frozen <= 0.0f)
         {
-            Attack();
+            if ((this.transform.position - player.transform.position).magnitude <= attackDistance)
+            {
+                Attack();
+            } else
+            {
+
+                agent.destination = player.transform.position;
+                fireTimer = fireInterval;
+            } 
         } else
         {
-            agent.destination = player.transform.position;
-            fireTimer = fireInterval;
+            agent.destination = gameObject.transform.position;
+            frozen -= Time.deltaTime;
         }
+
         CheckDead();
     }
 
