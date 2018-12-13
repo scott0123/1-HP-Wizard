@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using System.IO;
 using System;
 using UnityEngine.UI;
 
 public class GestureCollector : MonoBehaviour {
 
+    public GameObject player;
     public GameObject wandTip;
     public GameObject ephemeralTrail;
     public GameObject gestureTrail;
@@ -94,19 +96,41 @@ public class GestureCollector : MonoBehaviour {
             g.gesture.Add(new List<float>(y.ToArray()));
             g.gesture.Add(new List<float>(z.ToArray()));
 
-            RecognizeGesture(g, referenceToGestureClone);
+            StartCoroutine(RecognizeGesture(g, referenceToGestureClone));
         }
     }
-    void RecognizeGesture(UnnamedGesture g, GameObject trail)
+    IEnumerator RecognizeGesture(UnnamedGesture g, GameObject trail)
     {
         // recognize the gesture
-        //TODO
         bool recognized = true;
+        SpellControl sc = player.GetComponent<SpellControl>();
         // either glow the trail or get rid of it
         TrailRenderer tr = trail.GetComponent<TrailRenderer>();
         tr.emitting = false;
+        String recognizedGesture = "";
+        String address = "http://10.192.20.118";
+        address += "/?gesture=";
+        address += UnnamedGestureToJson(g);
+        using (UnityWebRequest www = UnityWebRequest.Get(address))
+        {
+            yield return www.Send();
+
+            if (www.isNetworkError || www.isHttpError)
+            {
+                Debug.Log(www.error);
+                recognized = false;
+            }
+            else
+            {
+                String response = www.downloadHandler.text;
+                String[] tokens = response.Split('\"');
+                recognizedGesture = tokens[3];
+                Debug.Log(recognizedGesture);
+            }
+        }
         if (recognized)
         {
+            sc.primedSpell = recognizedGesture;
             tr.startColor = new Color(0, 1, 0, 1);
             tr.endColor = new Color(0, 1, 0, 1);
         }
@@ -183,15 +207,18 @@ public class GestureCollector : MonoBehaviour {
         Debug.Log("Finished Saving");
     }
 
-    string NamedGestureToJson(NamedGesture ng) {
+    string NamedGestureToJson(NamedGesture ng)
+    {
         string s = "{\"name\":\"";
         s += ng.name;
         s += "\",\"gesture\":[";
         string gs = ""; // gesture string
-        foreach (List<float> fl in ng.gesture) {
+        foreach (List<float> fl in ng.gesture)
+        {
             if (gs.Length != 0) gs += ",";
             string fs = "["; // float list string
-            foreach (float f in fl) {
+            foreach (float f in fl)
+            {
                 if (fs.Length != 1) fs += ",";
                 fs += f.ToString("F4");
             }
@@ -199,6 +226,25 @@ public class GestureCollector : MonoBehaviour {
         }
         s += gs;
         s += "]}";
+        return s;
+    }
+    string UnnamedGestureToJson(UnnamedGesture g)
+    {
+        string s = "[";
+        string gs = ""; // gesture string
+        foreach (List<float> fl in g.gesture)
+        {
+            if (gs.Length != 0) gs += ",";
+            string fs = "["; // float list string
+            foreach (float f in fl)
+            {
+                if (fs.Length != 1) fs += ",";
+                fs += f.ToString("F4");
+            }
+            gs += fs + "]";
+        }
+        s += gs;
+        s += "]";
         return s;
     }
 }

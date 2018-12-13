@@ -13,10 +13,11 @@ public class SpellControl : MonoBehaviour {
     public GameObject wand;
     public GameObject shield;
 
-	private float wandLength;
+    public string primedSpell = "";
+
+    private float wandLength;
     private int mana;
 
-    private string primedSpell = "";
 
     private double manaRegenInterval;
     private double manaRegenTimer;
@@ -41,27 +42,28 @@ public class SpellControl : MonoBehaviour {
 
     //void checkGestures()
     //{
-    //if a gesture succeeds, set primedSpell to the capitalized string of that spell such as "Air"
+    //    if a gesture succeeds, set primedSpell to the capitalized string of that spell such as "Air"
     //primedSpell = selectedSpell;
     //}
 
     void DetectTrigger()
     {
-        if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))// && primedSpell != "") // this might need changing, Button.PrimaryThumbStick
+        Debug.Log(primedSpell);
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger) && primedSpell != "") // this might need changing, Button.PrimaryThumbStick
         {
             Invoke("Cast" + primedSpell, 0.0f);
             primedSpell = "";
         }
-        if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger)) // this might need changing, Button.PrimaryThumbStick
-        {
-            primedSpell = "Air";
-            //CastAir();
-        }
-        else if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
-        {
-            primedSpell = "Lightning";
-            //CastLightning();
-        }
+        //if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger)) // this might need changing, Button.PrimaryThumbStick
+        //{
+        //    primedSpell = "Air";
+        //    //CastAir();
+        //}
+        //else if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
+        //{
+        //    primedSpell = "Lightning";
+        //    //CastLightning();
+        //}
         else if (OVRInput.GetDown(OVRInput.Button.PrimaryThumbstick))
         {
             CastSpell();
@@ -140,7 +142,7 @@ public class SpellControl : MonoBehaviour {
         }
     }
 
-    void CastIce()
+    void CastFreezing()
     {
         Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
         GameObject instance = Instantiate(ice, wand.transform.position + wand.transform.up * (wandLength / 2 + 0.1f), wand.transform.rotation * wand_quat);
