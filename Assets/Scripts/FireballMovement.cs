@@ -5,7 +5,8 @@ public class FireballMovement : MonoBehaviour
 {
 
     private float speed;
-
+    bool exploding = false;
+    float explodeTime = 0.2f;
     void Start()
     {
         speed = 5.0f;
@@ -14,12 +15,29 @@ public class FireballMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        Move();
+        if (exploding)
+        {
+            Explode();
+        }
+        else
+        {
+            Move();
+        }
+    }
+    void Explode()
+    {
+        if (explodeTime > 0.0f)
+        {
+            explodeTime -= Time.deltaTime;
+        }
+        this.GetComponent<MeshRenderer>().material.color = new Color(1, 0, 0, explodeTime);
+        this.transform.localScale = Vector3.one * ((0.2f - explodeTime) / 0.2f) * 4;
     }
 
     void OnTriggerEnter(Collider other)
     {
-
+        speed = 0.0f;
+        exploding = true;
         if (other.transform.tag == "Target")
         {
             Collider[] explosionVictims = Physics.OverlapSphere(this.transform.position, 2.0F);
@@ -27,7 +45,7 @@ public class FireballMovement : MonoBehaviour
             {
                 victim.transform.SendMessage("Death", "Fireball");
             }
-            SelfDestruct();
+            Invoke("SelfDestruct", 0.2f);
         }
         else
         {
@@ -36,7 +54,7 @@ public class FireballMovement : MonoBehaviour
             {
                 victim.transform.SendMessage("GetHit", "Fireball");
             }
-            SelfDestruct();
+            Invoke("SelfDestruct", 0.2f);
         }
     }
 

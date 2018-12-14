@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
+using UnityEditor;
 using System.Collections;
 
 public class SpellControl : MonoBehaviour {
 
-    public AudioClip castSound;
+    public AudioClip CastSound;
     public GameObject spell;
     public GameObject fireball;
     public GameObject earth;
@@ -11,7 +12,11 @@ public class SpellControl : MonoBehaviour {
     public GameObject air;
     public GameObject lightning;
     public GameObject wand;
+    public GameObject wandTip;
     public GameObject shield;
+    public GameObject lightningLine;
+    GameObject instance = null;
+    
 
     public string primedSpell = "";
 
@@ -40,39 +45,22 @@ public class SpellControl : MonoBehaviour {
         DetectTrigger();
     }
 
-    //void checkGestures()
-    //{
-    //    if a gesture succeeds, set primedSpell to the capitalized string of that spell such as "Air"
-    //primedSpell = selectedSpell;
-    //}
-
     void DetectTrigger()
     {
-        Debug.Log(primedSpell);
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger) && primedSpell != "") // this might need changing, Button.PrimaryThumbStick
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger))
         {
-            Invoke("Cast" + primedSpell, 0.0f);
-            primedSpell = "";
+            if (primedSpell != "")
+            {
+                Invoke("Cast" + primedSpell, 0.0f);
+                primedSpell = "";
+            } else
+            {
+                CastSpell();
+            }
         }
-        //if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger)) // this might need changing, Button.PrimaryThumbStick
-        //{
-        //    primedSpell = "Air";
-        //    //CastAir();
-        //}
-        //else if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
-        //{
-        //    primedSpell = "Lightning";
-        //    //CastLightning();
-        //}
-        else if (OVRInput.GetDown(OVRInput.Button.PrimaryThumbstick))
+        else if (primedSpell != "")
         {
-            CastSpell();
-        }
-        else if (OVRInput.GetDown(OVRInput.Button.SecondaryThumbstick))
-        {
-            primedSpell = "Shield";
-            //print("shield");
-            //CastShield();
+            Invoke("Activate" + primedSpell, 0.0f);
         }
 
     }
@@ -82,106 +70,203 @@ public class SpellControl : MonoBehaviour {
         {
             Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
             GameObject instance = Instantiate(spell, wand.transform.position + wand.transform.up * (wandLength / 2 + 0.1f), wand.transform.rotation * wand_quat);
-            if (castSound != null)
+            if (CastSound != null)
             {
-                AudioSource.PlayClipAtPoint(castSound, instance.transform.position, 0.5f);
+                AudioSource.PlayClipAtPoint(CastSound, instance.transform.position, 0.5f);
             }
             else
             {
-                Debug.Log("You forgot to attach a casting sound to SpellControl!");
+                Debug.Log("You forgot to attach a Casting sound to SpellControl!");
             }
 
             mana--;
         }
     }
 
+    void ActivateAir()
+    {
+        WandColor.updateColor("Air");
+        Vector3 wandAngle = new Vector3(0, wand.transform.rotation.eulerAngles.y, 0);
+        Quaternion direction = Quaternion.Euler(wandAngle);
+        Ray ray = new Ray(new Vector3(wand.transform.position.x, 2, wand.transform.position.z), Quaternion.Euler(wandAngle) * transform.forward);
+        Vector3 airLocation = ray.GetPoint(3);
+        if (instance == null)
+        {
+            instance = Instantiate(air, airLocation, direction);
+            instance.GetComponent<Rigidbody>().detectCollisions = false;
+        } else
+        {
+            instance.transform.position = airLocation;
+            instance.transform.rotation = direction;
+        }
+    }
+
     void CastAir()
     {
-        Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
-        GameObject instance = Instantiate(air, wand.transform.position + wand.transform.up * (wandLength / 2 + 0.1f) + wand.transform.forward * 3, wand.transform.rotation * wand_quat);
-        if (castSound != null)
+        WandColor.updateColor("");
+        instance.GetComponent<Rigidbody>().detectCollisions = true;
+        instance.SendMessage("Cast");
+        instance = null;
+        if (CastSound != null)
         {
-            AudioSource.PlayClipAtPoint(castSound, instance.transform.position, 0.5f);
+            AudioSource.PlayClipAtPoint(CastSound, instance.transform.position, 0.5f);
         }
         else
         {
-            Debug.Log("You forgot to attach a casting sound to SpellControl!");
+            Debug.Log("You forgot to attach a Casting sound to SpellControl!");
+        }
+    }
+
+    void ActivateFireball()
+    {
+        if (mana >= 5)
+        {
+            WandColor.updateColor("Fireball");
+            mana -= 5;
         }
     }
 
     void CastFireball()
     {
-        if (mana >= 5)
+        WandColor.updateColor("");
+        wandTip.GetComponent<WandColor>().SendMessage("updateColor", "Fireball");
+        Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
+        GameObject instance = Instantiate(fireball, wand.transform.position + wand.transform.up * (wandLength / 2 + 0.1f), wand.transform.rotation * wand_quat);
+        if (CastSound != null)
         {
-            Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
-            GameObject instance = Instantiate(fireball, wand.transform.position + wand.transform.up * (wandLength / 2 + 0.1f), wand.transform.rotation * wand_quat);
-            if (castSound != null)
-            {
-                AudioSource.PlayClipAtPoint(castSound, instance.transform.position, 0.5f);
-            }
-            else
-            {
-                Debug.Log("You forgot to attach a casting sound to SpellControl!");
-            }
+            AudioSource.PlayClipAtPoint(CastSound, instance.transform.position, 0.5f);
+        }
+        else
+        {
+            Debug.Log("You forgot to attach a Casting sound to SpellControl!");
+        }
+    }
 
-            mana -= 5;
+    void ActivateEarth()
+    {
+        WandColor.updateColor("Earth");
+        if (instance == null)
+        {
+            instance = Instantiate(earth, Vector3.up * -2.1f, Quaternion.identity);
+            instance.GetComponent<Rigidbody>().detectCollisions = false;
+        }
+        Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
+        Ray aim = new Ray(wand.transform.position, wand.transform.rotation * wand_quat * transform.forward);
+        Plane ground = new Plane(Vector3.up, Vector3.zero);
+        float enter = 0.0f;
+        if (ground.Raycast(aim, out enter))
+        {
+            Vector3 hitPoint = aim.GetPoint(enter);
+            if (Vector3.Distance(hitPoint, new Vector3(wand.transform.position.x, 0, wand.transform.position.z)) > 2)
+            {
+                instance.transform.position = new Vector3(hitPoint.x, 2, hitPoint.z);
+            } else
+            {
+                Vector3 wandAngle = new Vector3(0, wand.transform.rotation.eulerAngles.y, 0);
+                Ray outward = new Ray(new Vector3(wand.transform.position.x, 0, wand.transform.position.z), Quaternion.Euler(wandAngle) * transform.forward);
+                hitPoint = outward.GetPoint(2);
+                instance.transform.position = new Vector3(hitPoint.x, 2, hitPoint.z);
+            }
         }
     }
 
     void CastEarth()
     {
-        Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
-        GameObject instance = Instantiate(earth, wand.transform.position + wand.transform.up * (wandLength / 2 + 0.1f), wand.transform.rotation * wand_quat);
-        if (castSound != null)
+        WandColor.updateColor("");
+        instance.GetComponent<Rigidbody>().detectCollisions = true;
+        instance.SendMessage("Cast");
+        instance = null;
+        if (CastSound != null)
         {
-            AudioSource.PlayClipAtPoint(castSound, instance.transform.position, 0.5f);
+            AudioSource.PlayClipAtPoint(CastSound, instance.transform.position, 0.5f);
         }
         else
         {
-            Debug.Log("You forgot to attach a casting sound to SpellControl!");
+            Debug.Log("You forgot to attach a Casting sound to SpellControl!");
         }
+    }
+
+    void ActivateFreezing()
+    {
+        WandColor.updateColor("Freezing");
     }
 
     void CastFreezing()
     {
+        WandColor.updateColor("");
         Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
         GameObject instance = Instantiate(ice, wand.transform.position + wand.transform.up * (wandLength / 2 + 0.1f), wand.transform.rotation * wand_quat);
-        if (castSound != null)
+        if (CastSound != null)
         {
-            AudioSource.PlayClipAtPoint(castSound, instance.transform.position, 0.5f);
+            AudioSource.PlayClipAtPoint(CastSound, instance.transform.position, 0.5f);
         }
         else
         {
-            Debug.Log("You forgot to attach a casting sound to SpellControl!");
+            Debug.Log("You forgot to attach a Casting sound to SpellControl!");
         }
+    }
+
+    void ActivateLightning()
+    {
+        WandColor.updateColor("Lightning");
+        if (instance == null)
+        {
+            instance = Instantiate(lightningLine, wand.transform.position, Quaternion.identity);
+            instance.GetComponent<LineRenderer>().material.color = new Color(1, 1, 0, 0.1f);
+        }
+        UpdateLightningLine();
     }
 
     void CastLightning()
     {
-        if (mana >= 10)
+        WandColor.updateColor("");
+        instance.GetComponent<LineRenderer>().material.color = new Color(1, 1, 0, 1);
+        InvokeRepeating("InstantiateLightning", 0.0f, 0.15f);
+        InvokeRepeating("UpdateLightningLine", 0.0f, 0.01f);
+        Invoke("EndLightning", 3.0f);
+        if (CastSound != null)
         {
-            Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
-            GameObject instance = Instantiate(lightning, wand.transform.position + wand.transform.up * (wandLength / 2 + 0.1f), wand.transform.rotation * wand_quat);
-            instance.transform.SetParent(wand.transform);
-            if (castSound != null)
-            {
-                AudioSource.PlayClipAtPoint(castSound, instance.transform.position, 0.5f);
-            }
-            else
-            {
-                Debug.Log("You forgot to attach a casting sound to SpellControl!");
-            }
+            AudioSource.PlayClipAtPoint(CastSound, instance.transform.position, 0.5f);
+        }
+        else
+        {
+            Debug.Log("You forgot to attach a Casting sound to SpellControl!");
+        }
+    }
 
-            mana -= 10;
+    void UpdateLightningLine()
+    {
+        Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
+        Ray ray = new Ray(wand.transform.position + wand.transform.up * (wandLength / 2 + 0.1f), wand.transform.rotation * wand_quat * transform.forward);
+        Vector3 endPoint = ray.GetPoint(50.0f);
+        Vector3[] positions = new Vector3[] { wand.transform.position + wand.transform.up * (wandLength / 2 + 0.1f), endPoint };
+        instance.GetComponent<LineRenderer>().SetPositions(positions);
+    }
+
+    void InstantiateLightning()
+    {
+        Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
+        GameObject bolt = Instantiate(lightning, wand.transform.position + wand.transform.up * (wandLength / 2 + 0.1f), wand.transform.rotation * wand_quat);
+    }
+
+    void EndLightning()
+    {
+        CancelInvoke();
+        Destroy(instance);
+        instance = null;
+    }
+
+    void ActivateShield()
+    {
+        if (mana >= 5)
+        {
+            shield.transform.SendMessage("Activate");
+            mana -= 5;
         }
     }
 
     void CastShield()
     {
-        if (mana >= 5)
-        {
-            shield.transform.SendMessage("ActivateShield");
-            mana -= 5;
-        }
+        shield.transform.SendMessage("Cast");
     }
 }

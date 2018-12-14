@@ -8,17 +8,8 @@ public class LightningMovement : MonoBehaviour
 
     void Start()
     {
-        speed = 0.0f;
+        speed = 50.0f; ;
         Invoke("SelfDestruct", 10.0f);
-    }
-
-    void Update()
-    {
-        if (OVRInput.GetUp(OVRInput.Button.SecondaryIndexTrigger))
-        {
-            this.transform.SetParent(null);
-            speed = 10.0f;
-        }
     }
 
     private void FixedUpdate()

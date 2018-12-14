@@ -3,40 +3,46 @@ using System.Collections;
 
 public class EarthMovement : MonoBehaviour
 {
-    public GameObject pillar;
-    private float speed;
+    private float speed = 0.0f;
+    private float time = 0.0f;
 
     void Start()
     {
-        speed = 5.0f;
-        Invoke("SelfDestruct", 10.0f);
+        Color color = this.GetComponent<Renderer>().material.color;
+        this.GetComponent<Renderer>().material.color = new Color(color.r, color.g, color.b, 0.1f);
     }
 
     void FixedUpdate()
     {
-        Move();
+        if (this.GetComponent<Rigidbody>().detectCollisions == true)
+        {
+            Move();
+        }
     }
 
-    void OnTriggerEnter(Collider other)
+    void Cast()
     {
-        if (other.tag == "Ground")
-        {
-            print("hit ground");
-            GameObject instance = Instantiate(pillar, this.transform.position + (Vector3.down * 2.1f), Quaternion.identity);
-        }
-        else if (other.tag == "Terrain")
-        {
-            SelfDestruct();
-        }
+        Color color = this.GetComponent<Renderer>().material.color;
+        this.GetComponent<Renderer>().material.color = new Color(color.r, color.g, color.b, 1);
+        this.transform.position += Vector3.down * 4.1f;
+        speed = 3.0f;
     }
 
     void Move()
     {
-        transform.position += transform.forward * speed * Time.deltaTime;
-    }
-
-    void SelfDestruct()
-    {
-        Destroy(gameObject);
+        time += Time.deltaTime;
+        if (time < 10.0f && this.transform.position.y < 2)
+        {
+            transform.position += transform.up * speed * Time.deltaTime;
+        }
+        else if (time >= 10.0f)
+        {
+            if (this.transform.position.y < -2)
+            {
+                Destroy(this);
+            }
+            transform.position += transform.up * -speed * Time.deltaTime;
+        }
     }
 }
+

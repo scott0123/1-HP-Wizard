@@ -96,7 +96,15 @@ public class GestureCollector : MonoBehaviour {
             g.gesture.Add(new List<float>(y.ToArray()));
             g.gesture.Add(new List<float>(z.ToArray()));
 
-            StartCoroutine(RecognizeGesture(g, referenceToGestureClone));
+            if (g.gesture[0].Count > 18 && g.gesture[0].Count < 300)
+            {
+                StartCoroutine(RecognizeGesture(g, referenceToGestureClone));
+            }
+            else
+            {
+                Debug.Log("Length of gesture not valid");
+                StartCoroutine(DestroyTrail(referenceToGestureClone));
+            }
         }
     }
     IEnumerator RecognizeGesture(UnnamedGesture g, GameObject trail)
@@ -108,7 +116,7 @@ public class GestureCollector : MonoBehaviour {
         TrailRenderer tr = trail.GetComponent<TrailRenderer>();
         tr.emitting = false;
         String recognizedGesture = "";
-        String address = "http://10.192.20.118";
+        String address = "http://gestures.christiaanh.org:5000";
         address += "/?gesture=";
         address += UnnamedGestureToJson(g);
         using (UnityWebRequest www = UnityWebRequest.Get(address))
@@ -156,7 +164,6 @@ public class GestureCollector : MonoBehaviour {
 
     void LabelTrue() {
         positive += 1;
-        ui.text = "Pos: " + positive + "\nNeg: " + negative;
         NamedGesture ng = new NamedGesture();
         ng.name = label;
         ng.gesture = new List<List<float>>();
@@ -167,7 +174,6 @@ public class GestureCollector : MonoBehaviour {
     }
     void LabelFalse() {
         negative += 1;
-        ui.text = "Pos: " + positive + "\nNeg: " + negative;
         NamedGesture ng = new NamedGesture();
         ng.name = "!";
         ng.name += label;
