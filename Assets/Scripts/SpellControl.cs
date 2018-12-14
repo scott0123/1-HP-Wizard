@@ -186,12 +186,12 @@ public class SpellControl : MonoBehaviour {
         }
     }
 
-    void ActivateFreezing()
+    void ActivateIce()
     {
-        WandColor.updateColor("Freezing");
+        WandColor.updateColor("Ice");
     }
 
-    void CastFreezing()
+    void CastIce()
     {
         WandColor.updateColor("");
         Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));

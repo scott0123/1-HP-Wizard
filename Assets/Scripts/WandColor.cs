@@ -29,7 +29,7 @@ public class WandColor : MonoBehaviour {
             case "Earth":
                 color = new Color(1, 0.5f, 0);
                 break;
-            case "Freezing":
+            case "Ice":
                 color = Color.blue;
                 break;
             case "Shield":
