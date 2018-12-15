@@ -134,6 +134,9 @@ public class GestureCollector : MonoBehaviour {
                 String[] tokens = response.Split('\"');
                 recognizedGesture = tokens[3];
                 Debug.Log(recognizedGesture);
+                if(recognizedGesture == "Error"){
+                    recognized = false;
+                }
             }
         }
         if (recognized)
