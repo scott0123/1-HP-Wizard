@@ -5,6 +5,7 @@ using System.Collections;
 public class SpellControl : MonoBehaviour {
 
     public AudioClip CastSound;
+    public AudioSource spellSoundSrc;
     public GameObject spell;
     public GameObject fireball;
     public GameObject earth;

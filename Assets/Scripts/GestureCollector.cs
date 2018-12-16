@@ -39,6 +39,7 @@ public class GestureCollector : MonoBehaviour {
     void Update() {
         
         if (OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger) > 0) { // Right, Side-button
+            Debug.Log("Trigger pulled");
             Collect();
         } else {
             StopCollecting();
@@ -109,6 +110,7 @@ public class GestureCollector : MonoBehaviour {
     }
     IEnumerator RecognizeGesture(UnnamedGesture g, GameObject trail)
     {
+        Debug.Log("Recognizing gesture");
         // recognize the gesture
         bool recognized = true;
         SpellControl sc = player.GetComponent<SpellControl>();

@@ -5,6 +5,8 @@ public class LightningMovement : MonoBehaviour
 {
 
     private float speed;
+    public AudioSource lightningSoundSource;
+    public AudioClip lightningSound;
 
     void Start()
     {
