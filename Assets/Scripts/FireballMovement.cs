@@ -3,7 +3,7 @@ using System.Collections;
 
 public class FireballMovement : MonoBehaviour
 {
-
+    public AudioClip fireClip;
     private float speed;
     bool exploding = false;
     float explodeTime = 0.2f;
@@ -26,6 +26,7 @@ public class FireballMovement : MonoBehaviour
     }
     void Explode()
     {
+        AudioSource.PlayClipAtPoint(fireClip, this.transform.position, 0.5f);
         if (explodeTime > 0.0f)
         {
             explodeTime -= Time.deltaTime;

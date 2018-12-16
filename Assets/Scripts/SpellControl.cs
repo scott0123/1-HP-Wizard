@@ -5,7 +5,6 @@ using System.Collections;
 public class SpellControl : MonoBehaviour {
 
     public AudioClip CastSound;
-    public AudioSource spellSoundSrc;
     public GameObject spell;
     public GameObject fireball;
     public GameObject earth;
@@ -108,14 +107,6 @@ public class SpellControl : MonoBehaviour {
         instance.GetComponent<Rigidbody>().detectCollisions = true;
         instance.SendMessage("Cast");
         instance = null;
-        if (CastSound != null)
-        {
-            AudioSource.PlayClipAtPoint(CastSound, instance.transform.position, 0.5f);
-        }
-        else
-        {
-            Debug.Log("You forgot to attach a Casting sound to SpellControl!");
-        }
     }
 
     void ActivateFireball()
@@ -133,14 +124,6 @@ public class SpellControl : MonoBehaviour {
         wandTip.GetComponent<WandColor>().SendMessage("updateColor", "Fireball");
         Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
         GameObject instance = Instantiate(fireball, wand.transform.position + wand.transform.up * (wandLength / 2 + 0.1f), wand.transform.rotation * wand_quat);
-        if (CastSound != null)
-        {
-            AudioSource.PlayClipAtPoint(CastSound, instance.transform.position, 0.5f);
-        }
-        else
-        {
-            Debug.Log("You forgot to attach a Casting sound to SpellControl!");
-        }
     }
 
     void ActivateEarth()
@@ -177,14 +160,6 @@ public class SpellControl : MonoBehaviour {
         instance.GetComponent<Rigidbody>().detectCollisions = true;
         instance.SendMessage("Cast");
         instance = null;
-        if (CastSound != null)
-        {
-            AudioSource.PlayClipAtPoint(CastSound, instance.transform.position, 0.5f);
-        }
-        else
-        {
-            Debug.Log("You forgot to attach a Casting sound to SpellControl!");
-        }
     }
 
     void ActivateIce()
@@ -197,14 +172,6 @@ public class SpellControl : MonoBehaviour {
         WandColor.updateColor("");
         Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
         GameObject instance = Instantiate(ice, wand.transform.position + wand.transform.up * (wandLength / 2 + 0.1f), wand.transform.rotation * wand_quat);
-        if (CastSound != null)
-        {
-            AudioSource.PlayClipAtPoint(CastSound, instance.transform.position, 0.5f);
-        }
-        else
-        {
-            Debug.Log("You forgot to attach a Casting sound to SpellControl!");
-        }
     }
 
     void ActivateLightning()
@@ -225,14 +192,6 @@ public class SpellControl : MonoBehaviour {
         InvokeRepeating("InstantiateLightning", 0.0f, 0.15f);
         InvokeRepeating("UpdateLightningLine", 0.0f, 0.01f);
         Invoke("EndLightning", 3.0f);
-        if (CastSound != null)
-        {
-            AudioSource.PlayClipAtPoint(CastSound, instance.transform.position, 0.5f);
-        }
-        else
-        {
-            Debug.Log("You forgot to attach a Casting sound to SpellControl!");
-        }
     }
 
     void UpdateLightningLine()

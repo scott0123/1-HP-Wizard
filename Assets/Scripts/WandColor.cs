@@ -5,10 +5,10 @@ using UnityEditor;
 
 public class WandColor : MonoBehaviour {
 
-    static SerializedObject halo;
+    //static SerializedObject halo;
     static Color color = Color.cyan;
     void Start () {
-        halo = new SerializedObject(this.gameObject.GetComponent("Halo"));
+        //halo = new SerializedObject(this.gameObject.GetComponent("Halo"));
     }
 	
 	// Update is called once per frame
@@ -42,7 +42,7 @@ public class WandColor : MonoBehaviour {
                 color = Color.cyan;
                 break;
         }
-        halo.FindProperty("m_Color").colorValue = color;
-        halo.ApplyModifiedProperties();
+        //halo.FindProperty("m_Color").colorValue = color;
+        //halo.ApplyModifiedProperties();
     }
 }

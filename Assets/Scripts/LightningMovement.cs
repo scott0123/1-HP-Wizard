@@ -5,12 +5,12 @@ public class LightningMovement : MonoBehaviour
 {
 
     private float speed;
-    public AudioSource lightningSoundSource;
-    public AudioClip lightningSound;
+    public AudioClip lightningClip;
 
     void Start()
     {
-        speed = 50.0f; ;
+        speed = 50.0f;
+
         Invoke("SelfDestruct", 10.0f);
     }
 

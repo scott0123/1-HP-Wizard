@@ -3,12 +3,13 @@ using System.Collections;
 
 public class IceMovement : MonoBehaviour
 {
-
+    public AudioClip iceClip;
     private float speed;
     bool exploding = false;
     float explodeTime = 0.2f;
     void Start()
     {
+        AudioSource.PlayClipAtPoint(iceClip, this.transform.position, 0.5f);
         speed = 5.0f;
         Invoke("SelfDestruct", 10.0f);
     }
@@ -27,6 +28,7 @@ public class IceMovement : MonoBehaviour
 
     void Explode()
     {
+        AudioSource.PlayClipAtPoint(iceClip, this.transform.position, 0.5f);
         if (explodeTime > 0.0f)
         {
             explodeTime -= Time.deltaTime;

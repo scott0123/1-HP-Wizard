@@ -3,6 +3,7 @@ using System.Collections;
 
 public class EarthMovement : MonoBehaviour
 {
+    public AudioClip earthClip;
     private float speed = 0.0f;
     private float time = 0.0f;
 
@@ -22,6 +23,7 @@ public class EarthMovement : MonoBehaviour
 
     void Cast()
     {
+        AudioSource.PlayClipAtPoint(earthClip, this.transform.position, 0.5f);
         Color color = this.GetComponent<Renderer>().material.color;
         this.GetComponent<Renderer>().material.color = new Color(color.r, color.g, color.b, 1);
         this.transform.position += Vector3.down * 4.1f;
