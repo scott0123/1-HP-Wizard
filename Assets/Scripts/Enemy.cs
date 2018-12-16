@@ -46,7 +46,7 @@ public abstract class Enemy : MoveableObject {
         }
         else if (source == "Lightning")
         {
-            hp -= 10;
+            hp--;
         }
         else
         {

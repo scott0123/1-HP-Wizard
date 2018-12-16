@@ -26,7 +26,7 @@ public class EnemySpellMovement : MonoBehaviour
             SelfDestruct();
         }
 
-        else if (other.transform.tag == "Player")
+        else if (other.transform.tag == "PlayerTarget")
         {
             Debug.Log("You Died.");
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);

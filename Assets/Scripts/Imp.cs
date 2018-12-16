@@ -13,7 +13,7 @@ public class Imp : MeleeEnemy {
             Attack();
         } 
 
-        if (agent.baseOffset > 0.5f && player_dist < 5 * attackDistance)
+        if (agent.baseOffset > 1.5f && player_dist < 5 * attackDistance)
         {
             agent.baseOffset -= Time.deltaTime;
         }
