@@ -28,7 +28,7 @@ public class IceMovement : MonoBehaviour
 
     void Explode()
     {
-        AudioSource.PlayClipAtPoint(iceClip, this.transform.position, 0.5f);
+        AudioSource.PlayClipAtPoint(iceClip, this.transform.position, 1f);
         if (explodeTime > 0.0f)
         {
             explodeTime -= Time.deltaTime;

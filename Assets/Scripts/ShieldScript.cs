@@ -28,7 +28,7 @@ public class ShieldScript : MonoBehaviour {
 
     void Cast()
     {
-        AudioSource.PlayClipAtPoint(shieldClip, this.transform.position, 0.5f);
+        AudioSource.PlayClipAtPoint(shieldClip, this.transform.position, 1f);
         this.GetComponent<BoxCollider>().enabled = true;
         timeLeft = 20.0f;
         WandColor.updateColor("");

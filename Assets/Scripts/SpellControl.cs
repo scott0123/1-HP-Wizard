@@ -72,7 +72,7 @@ public class SpellControl : MonoBehaviour {
             GameObject instance = Instantiate(spell, wand.transform.position + wand.transform.up * (wandLength / 2 + 0.1f), wand.transform.rotation * wand_quat);
             if (CastSound != null)
             {
-                AudioSource.PlayClipAtPoint(CastSound, instance.transform.position, 0.5f);
+                AudioSource.PlayClipAtPoint(CastSound, instance.transform.position, 1f);
             }
             else
             {

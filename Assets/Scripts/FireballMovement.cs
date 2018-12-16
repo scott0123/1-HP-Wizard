@@ -9,6 +9,7 @@ public class FireballMovement : MonoBehaviour
     float explodeTime = 0.2f;
     void Start()
     {
+        AudioSource.PlayClipAtPoint(fireClip, this.transform.position, 1f);
         speed = 5.0f;
         Invoke("SelfDestruct", 10.0f);
     }
@@ -26,7 +27,6 @@ public class FireballMovement : MonoBehaviour
     }
     void Explode()
     {
-        AudioSource.PlayClipAtPoint(fireClip, this.transform.position, 0.5f);
         if (explodeTime > 0.0f)
         {
             explodeTime -= Time.deltaTime;

@@ -10,7 +10,7 @@ public class LightningMovement : MonoBehaviour
     void Start()
     {
         speed = 50.0f;
-
+        AudioSource.PlayClipAtPoint(lightningClip, this.transform.position, 1f);
         Invoke("SelfDestruct", 10.0f);
     }
 

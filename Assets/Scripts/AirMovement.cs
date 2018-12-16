@@ -18,7 +18,7 @@ public class AirMovement : MonoBehaviour {
 
     void Cast()
     {
-        AudioSource.PlayClipAtPoint(airClip, this.transform.position, 0.5f);
+        AudioSource.PlayClipAtPoint(airClip, this.transform.position, 1f);
         speed = 10.0f;
         Invoke("SelfDestruct", 10.0f);
     }

@@ -23,7 +23,7 @@ public class EarthMovement : MonoBehaviour
 
     void Cast()
     {
-        AudioSource.PlayClipAtPoint(earthClip, this.transform.position, 0.5f);
+        AudioSource.PlayClipAtPoint(earthClip, this.transform.position, 1f);
         Color color = this.GetComponent<Renderer>().material.color;
         this.GetComponent<Renderer>().material.color = new Color(color.r, color.g, color.b, 1);
         this.transform.position += Vector3.down * 4.1f;
