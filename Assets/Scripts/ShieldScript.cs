@@ -8,7 +8,7 @@ public class ShieldScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         timeLeft = 0.0f;
-        this.GetComponent<Renderer>().enabled = false;
+        this.GetComponentInChildren<Renderer>().enabled = false;
         this.GetComponent<BoxCollider>().enabled = false;
 	}
 
@@ -21,8 +21,8 @@ public class ShieldScript : MonoBehaviour {
     {
         WandColor.updateColor("Shield");
         timeLeft = float.MinValue;
-        this.GetComponent<Renderer>().enabled = true;
-        this.GetComponent<Renderer>().material.color = new Color(0, 1, 0, 0.1f);
+        this.GetComponentInChildren<Renderer>().enabled = true;
+        this.GetComponentInChildren<Renderer>().material.color = new Color(0, 1, 0, 0.9f);
     }
 
     void Cast()
@@ -46,10 +46,10 @@ public class ShieldScript : MonoBehaviour {
         {
             timeLeft -= Time.deltaTime;
             float colorRatio = timeLeft / 20.0f;
-            this.GetComponent<Renderer>().material.color = new Color(0, 1, 0, colorRatio);
+            this.GetComponentInChildren<Renderer>().material.color = new Color(0, 1, 0, colorRatio);
         } else if (timeLeft != float.MinValue)
         {
-            this.GetComponent<Renderer>().enabled = false;
+            this.GetComponentInChildren<Renderer>().enabled = false;
             this.GetComponent<BoxCollider>().enabled = false;
         }
 	}

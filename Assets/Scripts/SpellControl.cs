@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEditor;
 using System.Collections;
 
@@ -11,16 +12,17 @@ public class SpellControl : MonoBehaviour {
     public GameObject ice;
     public GameObject air;
     public GameObject lightning;
-    public GameObject wand;
     public GameObject wandTip;
     public GameObject shield;
     public GameObject lightningLine;
+
+    public Text optionalUI;
+
     GameObject instance;
     
 
     public string primedSpell;
-
-    private float wandLength;
+    
     private int mana;
 
 
@@ -29,7 +31,6 @@ public class SpellControl : MonoBehaviour {
 
     void Start(){
         mana = 20;
-		wandLength = 0.15f;
 
         instance = null;
         primedSpell = "";
@@ -37,7 +38,11 @@ public class SpellControl : MonoBehaviour {
         manaRegenInterval = 1.0f;
         manaRegenTimer = 1.0f;
     }
-	void Update() {
+    void Update() {
+        if (optionalUI != null)
+        {
+            optionalUI.text = "Mana: " + mana;
+        }
         manaRegenTimer -= Time.deltaTime;
         if (manaRegenTimer <= 0.0f)
         {
@@ -79,7 +84,7 @@ public class SpellControl : MonoBehaviour {
         if (mana >= 1)
         {
             Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
-            GameObject instance = Instantiate(spell, wand.transform.position + wand.transform.up * (wandLength / 2 + 0.1f), wand.transform.rotation * wand_quat);
+            GameObject instance = Instantiate(spell, wandTip.transform.position, wandTip.transform.rotation * wand_quat);
             if (CastSound != null)
             {
                 AudioSource.PlayClipAtPoint(CastSound, instance.transform.position, 0.5f);
@@ -97,9 +102,9 @@ public class SpellControl : MonoBehaviour {
     {
         Invoke("EndLightning", 0.01f);
         WandColor.updateColor("Air");
-        Vector3 wandAngle = new Vector3(0, wand.transform.rotation.eulerAngles.y, 0);
+        Vector3 wandAngle = new Vector3(0, wandTip.transform.rotation.eulerAngles.y, 0);
         Quaternion direction = Quaternion.Euler(wandAngle);
-        Ray ray = new Ray(new Vector3(wand.transform.position.x, 2, wand.transform.position.z), Quaternion.Euler(wandAngle) * transform.forward);
+        Ray ray = new Ray(new Vector3(wandTip.transform.position.x, 2, wandTip.transform.position.z), Quaternion.Euler(wandAngle) * transform.forward);
         Vector3 airLocation = ray.GetPoint(3);
         if (instance == null)
         {
@@ -149,7 +154,7 @@ public class SpellControl : MonoBehaviour {
         {
             WandColor.updateColor("");
             Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
-            GameObject instance = Instantiate(fireball, wand.transform.position + wand.transform.up * (wandLength / 2 + 0.1f), wand.transform.rotation * wand_quat);
+            GameObject instance = Instantiate(fireball, wandTip.transform.position, wandTip.transform.rotation * wand_quat);
             if (CastSound != null)
             {
                 AudioSource.PlayClipAtPoint(CastSound, instance.transform.position, 0.5f);
@@ -176,19 +181,19 @@ public class SpellControl : MonoBehaviour {
             instance.GetComponent<CapsuleCollider>().enabled = false;
         }
         Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
-        Ray aim = new Ray(wand.transform.position, wand.transform.rotation * wand_quat * transform.forward);
+        Ray aim = new Ray(wandTip.transform.position, wandTip.transform.rotation * wand_quat * transform.forward);
         Plane ground = new Plane(Vector3.up, Vector3.zero);
         float enter = 0.0f;
         if (ground.Raycast(aim, out enter))
         {
             Vector3 hitPoint = aim.GetPoint(enter);
-            if (Vector3.Distance(hitPoint, new Vector3(wand.transform.position.x, 0, wand.transform.position.z)) > 2)
+            if (Vector3.Distance(hitPoint, new Vector3(wandTip.transform.position.x, 0, wandTip.transform.position.z)) > 2)
             {
                 instance.transform.position = new Vector3(hitPoint.x, 2, hitPoint.z);
             } else
             {
-                Vector3 wandAngle = new Vector3(0, wand.transform.rotation.eulerAngles.y, 0);
-                Ray outward = new Ray(new Vector3(wand.transform.position.x, 0, wand.transform.position.z), Quaternion.Euler(wandAngle) * transform.forward);
+                Vector3 wandAngle = new Vector3(0, wandTip.transform.rotation.eulerAngles.y, 0);
+                Ray outward = new Ray(new Vector3(wandTip.transform.position.x, 0, wandTip.transform.position.z), Quaternion.Euler(wandAngle) * transform.forward);
                 hitPoint = outward.GetPoint(2);
                 instance.transform.position = new Vector3(hitPoint.x, 2, hitPoint.z);
             }
@@ -231,7 +236,7 @@ public class SpellControl : MonoBehaviour {
         {
             WandColor.updateColor("");
             Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
-            GameObject instance = Instantiate(ice, wand.transform.position + wand.transform.up * (wandLength / 2 + 0.1f), wand.transform.rotation * wand_quat);
+            GameObject instance = Instantiate(ice, wandTip.transform.position, wandTip.transform.rotation * wand_quat);
             if (CastSound != null)
             {
                 AudioSource.PlayClipAtPoint(CastSound, instance.transform.position, 0.5f);
@@ -252,7 +257,7 @@ public class SpellControl : MonoBehaviour {
         WandColor.updateColor("Lightning");
         if (instance == null)
         {
-            instance = Instantiate(lightningLine, wand.transform.position, Quaternion.identity);
+            instance = Instantiate(lightningLine, wandTip.transform.position, Quaternion.identity);
             instance.GetComponent<LineRenderer>().material.color = new Color(1, 1, 0, 0.1f);
         }
         UpdateLightningLine();
@@ -285,16 +290,16 @@ public class SpellControl : MonoBehaviour {
     void UpdateLightningLine()
     {
         Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
-        Ray ray = new Ray(wand.transform.position + wand.transform.up * (wandLength / 2 + 0.1f), wand.transform.rotation * wand_quat * transform.forward);
+        Ray ray = new Ray(wandTip.transform.position, wandTip.transform.rotation * wand_quat * transform.forward);
         Vector3 endPoint = ray.GetPoint(50.0f);
-        Vector3[] positions = new Vector3[] { wand.transform.position + wand.transform.up * (wandLength / 2 + 0.1f), endPoint };
+        Vector3[] positions = new Vector3[] { wandTip.transform.position, endPoint };
         instance.GetComponent<LineRenderer>().SetPositions(positions);
     }
 
     void InstantiateLightning()
     {
         Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
-        GameObject bolt = Instantiate(lightning, wand.transform.position + wand.transform.up * (wandLength / 2 + 0.1f), wand.transform.rotation * wand_quat);
+        GameObject bolt = Instantiate(lightning, wandTip.transform.position, wandTip.transform.rotation * wand_quat);
     }
 
     void EndLightning()
