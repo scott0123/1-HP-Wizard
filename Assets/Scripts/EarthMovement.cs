@@ -49,7 +49,7 @@ public class EarthMovement : MonoBehaviour
         {
             if (this.transform.position.y < -2)
             {
-                Destroy(this);
+                Destroy(gameObject);
             }
             transform.position += transform.up * -speed * Time.deltaTime;
         }

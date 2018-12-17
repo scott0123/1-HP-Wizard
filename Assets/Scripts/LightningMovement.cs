@@ -29,15 +29,11 @@ public class LightningMovement : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
 
-        if (other.transform.tag == "Target")
-        {
-            other.transform.SendMessage("Death", "Lightning");
-        }
-        else if (other.transform.tag == "Enemy")
+        if (other.transform.tag == "Enemy")
         {
             other.transform.SendMessage("GetHit", "Lightning");
         }
-        else if (other.transform.tag == "Terrain")
+        else if (other.transform.tag == "Terrain" || other.transform.tag == "Ground")
         {
             SelfDestruct();
         }

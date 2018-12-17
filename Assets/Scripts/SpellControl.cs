@@ -115,7 +115,8 @@ public class SpellControl : MonoBehaviour {
         if (mana >= 1)
         {
             Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
-            GameObject instance = Instantiate(spell, wandTip.transform.position, wandTip.transform.rotation * wand_quat);
+            Quaternion prefab_offset = Quaternion.Euler(new Vector3(0, 0, 90.0f));
+            GameObject instance = Instantiate(spell, wandTip.transform.position, wandTip.transform.rotation * wand_quat * prefab_offset);
             if (CastSound != null)
             {
                 AudioSource.PlayClipAtPoint(CastSound, instance.transform.position, 0.5f);
@@ -177,7 +178,15 @@ public class SpellControl : MonoBehaviour {
         {
             WandColor.updateColor("");
             Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
-            GameObject instance = Instantiate(fireball, wandTip.transform.position, wandTip.transform.rotation * wand_quat);
+            GameObject instance = Instantiate(fireball, wandTip.transform.position + wand_quat * wandTip.transform.forward, wandTip.transform.rotation * wand_quat);
+            if (CastSound != null)
+            {
+                AudioSource.PlayClipAtPoint(CastSound, instance.transform.position, 0.5f);
+            }
+            else
+            {
+                Debug.Log("You forgot to attach a Casting sound to SpellControl!");
+            }
 
             primedSpell = "";
 
@@ -242,7 +251,16 @@ public class SpellControl : MonoBehaviour {
         {
             WandColor.updateColor("");
             Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
-            GameObject instance = Instantiate(ice, wandTip.transform.position, wandTip.transform.rotation * wand_quat);
+            Quaternion ice_offset = Quaternion.Euler(new Vector3(90.0f, 0, 0));
+            GameObject instance = Instantiate(ice, wandTip.transform.position + wand_quat * wandTip.transform.forward, wandTip.transform.rotation * wand_quat * ice_offset);
+            if (CastSound != null)
+            {
+                AudioSource.PlayClipAtPoint(CastSound, instance.transform.position, 0.5f);
+            }
+            else
+            {
+                Debug.Log("You forgot to attach a Casting sound to SpellControl!");
+            }
 
             primedSpell = "";
 

@@ -6,13 +6,9 @@ using UnityEngine.AI;
 public class Imp : MeleeEnemy {
     protected override void Move()
     {
-        agent.destination = player.transform.position;
-        float player_dist = (this.transform.position - player.transform.position).magnitude;
-        if (player_dist <= attackDistance)
-        {
-            Attack();
-        } 
+        base.Move();
 
+        float player_dist = (this.transform.position - player.transform.position).magnitude;
         if (agent.baseOffset > 1.5f && player_dist < 5 * attackDistance)
         {
             agent.baseOffset -= Time.deltaTime;
