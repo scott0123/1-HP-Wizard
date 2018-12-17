@@ -22,13 +22,13 @@ public class LevelScript : MonoBehaviour {
         if (level == 0)
             EnemyWizard.minionCount = -2;
         else if (level == 1)
-            EnemyWizard.minionCount = 10;
+            EnemyWizard.minionCount = 6;
         else if (level == 2)
             EnemyWizard.minionCount = 10;
         else if (level == 3)
             EnemyWizard.minionCount = 20;
-        spawnInterval = 20.0f;
-        spawnTimer = spawnInterval;
+        spawnInterval = 12.0f;
+        spawnTimer = 5;
         wave = 0;
     }
 
@@ -42,7 +42,7 @@ public class LevelScript : MonoBehaviour {
 
             if (level == 1)
             {
-                EnemyWizard.minionCount = 10; //arbitrary
+                EnemyWizard.minionCount = 6; //arbitrary
                 SceneManager.LoadScene("EnemyTestScene", LoadSceneMode.Single);
             } else if (level == 2)
             {
@@ -51,7 +51,7 @@ public class LevelScript : MonoBehaviour {
             } else
             {
                 EnemyWizard.minionCount = 20; //arbitrary
-                SceneManager.LoadScene("Level2", LoadSceneMode.Single);
+                SceneManager.LoadScene("Level3", LoadSceneMode.Single);
             }
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Oculus;
+using UnityEngine.SceneManagement;
 
 public class Tutorial : MonoBehaviour {
 
@@ -30,7 +31,7 @@ public class Tutorial : MonoBehaviour {
     string text9 = "Ice: medium cost, utility spell";
     string text10 = "Air: medium cost, defensive spell";
     string text11 = "Shield: medium cost, defensive spell";
-    string text12 = "Congratulations! You've passed the tutorial.";
+    string text12 = "Congratulations! You've passed the tutorial!";
     string text13 = "";
     string text14 = "";
     string text15 = "";
@@ -119,7 +120,7 @@ public class Tutorial : MonoBehaviour {
                 tutorialText.text = text13;
                 break;
             default:
-                // TODO: move on to the game
+				SceneManager.LoadScene("Level1", LoadSceneMode.Single);
                 break;
         }
     }
