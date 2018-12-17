@@ -48,12 +48,12 @@ public class SpellControl : MonoBehaviour {
     void Update() {
         if (OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger) > 0)
         {
-            if (aimRay.activeSelf)
+            if (aimRay && aimRay.activeSelf)
                 aimRay.SetActive(false);
         }
         else
         {
-            if (!aimRay.activeSelf)
+            if (aimRay && !aimRay.activeSelf)
                 aimRay.SetActive(true);
         }
 
@@ -73,8 +73,8 @@ public class SpellControl : MonoBehaviour {
         }
         DetectTrigger();
 
-
-        UpdateAimLine();
+        if (aimRay)
+            UpdateAimLine();
     }
 
     void DetectTrigger()
