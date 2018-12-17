@@ -39,7 +39,7 @@ public class SpellMovement : MonoBehaviour {
             SelfDestruct();
         }
 
-        else if (other.transform.tag == "Terrain")
+        else if (other.transform.tag == "Terrain" || other.transform.tag == "Ground")
         {
             SelfDestruct();
         }
