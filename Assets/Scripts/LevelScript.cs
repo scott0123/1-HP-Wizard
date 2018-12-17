@@ -43,7 +43,7 @@ public class LevelScript : MonoBehaviour {
             if (level == 1)
             {
                 EnemyWizard.minionCount = 6; //arbitrary
-                SceneManager.LoadScene("EnemyTestScene", LoadSceneMode.Single);
+                SceneManager.LoadScene("Level1", LoadSceneMode.Single);
             } else if (level == 2)
             {
                 EnemyWizard.minionCount = 10; //arbitrary
