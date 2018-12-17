@@ -68,8 +68,8 @@ public class LevelScript : MonoBehaviour {
             {
                 GameObject instanceBear = Instantiate(bear, new Vector3(5, 1, 33), Quaternion.identity);
                 instanceBear.GetComponent<Bear>().player = player;
-                //GameObject instanceJaguar = Instantiate(jaguar, new Vector3(5, 1, 32), Quaternion.identity);
-                //instanceJaguar.GetComponent<Jaguar>().player = player;
+                GameObject instanceJaguar = Instantiate(jaguar, new Vector3(6, 1, 36), Quaternion.identity);
+                instanceJaguar.GetComponent<Jaguar>().player = player;
             }
             else if (wave == 1)
             {
