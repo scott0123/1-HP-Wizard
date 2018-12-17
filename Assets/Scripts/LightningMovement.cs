@@ -3,11 +3,13 @@ using System.Collections;
 
 public class LightningMovement : MonoBehaviour
 {
+    public AudioClip lightningClip;
 
     private float speed;
 
     void Start()
     {
+        AudioSource.PlayClipAtPoint(lightningClip, this.transform.position, 1.0f);
         speed = 50.0f; ;
         Invoke("SelfDestruct", 10.0f);
     }

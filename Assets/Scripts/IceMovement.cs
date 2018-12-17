@@ -3,12 +3,15 @@ using System.Collections;
 
 public class IceMovement : MonoBehaviour
 {
+    public AudioClip iceClip;
 
     private float speed;
     bool exploding = false;
     float explodeTime = 0.2f;
+
     void Start()
     {
+        AudioSource.PlayClipAtPoint(iceClip, this.transform.position, 1.0f);
         speed = 5.0f;
         Invoke("SelfDestruct", 10.0f);
     }
