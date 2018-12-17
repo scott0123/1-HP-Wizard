@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ShieldScript : MonoBehaviour {
 
+    public AudioClip shieldClip;
+
     float timeLeft;
 	// Use this for initialization
 	void Start () {
@@ -27,6 +29,7 @@ public class ShieldScript : MonoBehaviour {
 
     void Cast()
     {
+        AudioSource.PlayClipAtPoint(shieldClip, this.transform.position, 1.0f);
         this.GetComponent<BoxCollider>().enabled = true;
         timeLeft = 20.0f;
         WandColor.updateColor("");
