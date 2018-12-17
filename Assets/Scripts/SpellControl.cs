@@ -314,8 +314,7 @@ public class SpellControl : MonoBehaviour {
         if (mana >= 5)
         {
             shield.transform.SendMessage("Activate");
-
-            primedSpell = "";
+            
             mana -= 5;
         }
     }
@@ -323,5 +322,7 @@ public class SpellControl : MonoBehaviour {
     void CastShield()
     {
         shield.transform.SendMessage("Cast");
+
+        primedSpell = "";
     }
 }

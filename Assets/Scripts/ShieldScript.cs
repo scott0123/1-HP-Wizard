@@ -22,7 +22,7 @@ public class ShieldScript : MonoBehaviour {
         WandColor.updateColor("Shield");
         timeLeft = float.MinValue;
         this.GetComponentInChildren<Renderer>().enabled = true;
-        this.GetComponentInChildren<Renderer>().material.color = new Color(0, 1, 0, 0.9f);
+        this.GetComponentInChildren<Renderer>().material.color = new Color(0, 1, 0, 0.1f);
     }
 
     void Cast()
