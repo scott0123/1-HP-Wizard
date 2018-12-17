@@ -15,13 +15,19 @@ public class LevelScript : MonoBehaviour {
     protected double spawnTimer;
     private int wave;
 
-    private static int level = 0;
+    private static int level = 3;
 
     // Use this for initialization
     void Start () {
         if (level == 0)
             EnemyWizard.minionCount = -2;
-        spawnInterval = 10.0f;
+        else if (level == 1)
+            EnemyWizard.minionCount = 10;
+        else if (level == 2)
+            EnemyWizard.minionCount = 10;
+        else if (level == 3)
+            EnemyWizard.minionCount = 20;
+        spawnInterval = 20.0f;
         spawnTimer = spawnInterval;
         wave = 0;
     }
