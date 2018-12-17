@@ -5,11 +5,15 @@ using UnityEngine.AI;
 
 public class FireDemon : RangedEnemy {
 
+    bool attackMode;
+
     // Use this for initialization
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         agent.destination = player.transform.position;
+
+        attackMode = false;
 
         hp = 20;
 
@@ -24,5 +28,15 @@ public class FireDemon : RangedEnemy {
     void Update()
     {
         Move();
+    }
+
+    protected override Attack(){
+
+        if(!attackMode){
+            attackMode = true;
+            Animator ani = this.GetComponentInChildren<Animator>();
+            ani.SetBool("attack", true);
+        }
+        parent.Attack()
     }
 }
