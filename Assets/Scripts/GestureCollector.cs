@@ -142,6 +142,7 @@ public class GestureCollector : MonoBehaviour {
                     if (spellFailure != null && spellStatus != null)
                     {
                         spellStatus.clip = spellFailure;
+                        spellStatus.Play();
                     }
                     else
                     {
@@ -158,13 +159,14 @@ public class GestureCollector : MonoBehaviour {
             if (spellSuccess != null && spellStatus != null)
             {
                 spellStatus.clip = spellFailure;
+                spellStatus.Play();
             }
             else
             {
                 Debug.Log("You forgot to attach a sound for spell success!");
             }
         }
-        spellStatus.Play();
+
         StartCoroutine(DestroyTrail(trail));
     }
     IEnumerator DestroyTrail(GameObject trail)

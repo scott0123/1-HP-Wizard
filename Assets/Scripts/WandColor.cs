@@ -5,15 +5,17 @@ using UnityEditor;
 
 public class WandColor : MonoBehaviour {
 
-    static SerializedObject halo;
+    static Light halo;
     static Color color = Color.cyan;
-    void Start () {
-        halo = new SerializedObject(this.gameObject.GetComponent("Halo"));
+    void Start()
+    {
+        halo = this.gameObject.GetComponent<Light>();
     }
-	
-	// Update is called once per frame
-	void Update () {
-        
+
+    // Update is called once per frame
+    void Update()
+    {
+
     }
 
     public static void updateColor(string spell)
@@ -27,7 +29,7 @@ public class WandColor : MonoBehaviour {
                 color = Color.red;
                 break;
             case "Earth":
-                color = new Color(1, 0.5f, 0);
+                color = new Color(222f, 184f, 135f);
                 break;
             case "Ice":
                 color = Color.blue;
@@ -42,7 +44,12 @@ public class WandColor : MonoBehaviour {
                 color = Color.cyan;
                 break;
         }
-        halo.FindProperty("m_Color").colorValue = color;
-        halo.ApplyModifiedProperties();
+        halo.color = color;
+    }
+
+    public static void updateIntensity(float manaPercent)
+    {
+        halo.intensity = Mathf.Pow(manaPercent, 2);
+        Debug.Log(halo.intensity);
     }
 }

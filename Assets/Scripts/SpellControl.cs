@@ -51,7 +51,10 @@ public class SpellControl : MonoBehaviour {
         if (manaRegenTimer <= 0.0f)
         {
             if (mana < 20)
+            {
                 mana++;
+                WandColor.updateIntensity(mana / 20.0f);
+            }
             manaRegenTimer = manaRegenInterval;
         }
         DetectTrigger();
@@ -109,6 +112,7 @@ public class SpellControl : MonoBehaviour {
             }
 
             mana--;
+            WandColor.updateIntensity(mana / 20.0f);
         }
     }
 
@@ -152,6 +156,7 @@ public class SpellControl : MonoBehaviour {
             primedSpell = "";
 
             mana -= 5;
+            WandColor.updateIntensity(mana / 20.0f);
         }
     }
 
@@ -181,6 +186,7 @@ public class SpellControl : MonoBehaviour {
             primedSpell = "";
 
             mana -= 5;
+            WandColor.updateIntensity(mana / 20.0f);
         }
     }
 
@@ -235,6 +241,7 @@ public class SpellControl : MonoBehaviour {
             primedSpell = "";
 
             mana -= 10;
+            WandColor.updateIntensity(mana / 20.0f);
         }
     }
 
@@ -263,6 +270,7 @@ public class SpellControl : MonoBehaviour {
             primedSpell = "";
 
             mana -= 5;
+            WandColor.updateIntensity(mana / 20.0f);
         }
     }
 
@@ -298,6 +306,7 @@ public class SpellControl : MonoBehaviour {
             primedSpell = "";
 
             mana -= 10;
+            WandColor.updateIntensity(mana / 20.0f);
         }
     }
 
@@ -330,6 +339,7 @@ public class SpellControl : MonoBehaviour {
             shield.transform.SendMessage("Activate");
             
             mana -= 5;
+            WandColor.updateIntensity(mana / 20.0f);
         }
     }
 
