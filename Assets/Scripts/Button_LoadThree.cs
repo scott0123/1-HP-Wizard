@@ -16,6 +16,7 @@ public class Button_LoadThree : MonoBehaviour {
 	}
 	
 	void OnTriggerEnter(Collider other){
+		LevelScript.level = 3;
         SceneManager.LoadScene("Level3", LoadSceneMode.Single);
 	}
 }

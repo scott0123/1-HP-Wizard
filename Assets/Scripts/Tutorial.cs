@@ -120,6 +120,7 @@ public class Tutorial : MonoBehaviour {
                 tutorialText.text = text13;
                 break;
             default:
+				LevelScript.level = 1;
 				SceneManager.LoadScene("Level1", LoadSceneMode.Single);
                 break;
         }
