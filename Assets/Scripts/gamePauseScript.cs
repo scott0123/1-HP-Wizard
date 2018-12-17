@@ -18,8 +18,8 @@ public class gamePauseScript : MonoBehaviour {
 
         if (OVRInput.GetDown(OVRInput.Button.Start))
         {
-            isPaused = !isPaused;
             Time.timeScale = isPaused ? 1f : 0f;
+            isPaused = !isPaused;
             
             pauseMenu.SetActive(isPaused);
 
