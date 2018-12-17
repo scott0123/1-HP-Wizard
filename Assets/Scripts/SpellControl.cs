@@ -157,14 +157,6 @@ public class SpellControl : MonoBehaviour {
 
             instance.SendMessage("Cast");
             instance = null;
-            if (CastSound != null)
-            {
-                AudioSource.PlayClipAtPoint(CastSound, instance.transform.position, 0.5f);
-            }
-            else
-            {
-                Debug.Log("You forgot to attach a Casting sound to SpellControl!");
-            }
 
             primedSpell = "";
 
@@ -186,14 +178,6 @@ public class SpellControl : MonoBehaviour {
             WandColor.updateColor("");
             Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
             GameObject instance = Instantiate(fireball, wandTip.transform.position, wandTip.transform.rotation * wand_quat);
-            if (CastSound != null)
-            {
-                AudioSource.PlayClipAtPoint(CastSound, instance.transform.position, 0.5f);
-            }
-            else
-            {
-                Debug.Log("You forgot to attach a Casting sound to SpellControl!");
-            }
 
             primedSpell = "";
 
@@ -239,14 +223,6 @@ public class SpellControl : MonoBehaviour {
             instance = Instantiate(earth, earthPos + Vector3.up * -2.1f, Quaternion.identity);
             instance.SendMessage("Cast");
             instance = null;
-            if (CastSound != null)
-            {
-                AudioSource.PlayClipAtPoint(CastSound, instance.transform.position, 0.5f);
-            }
-            else
-            {
-                Debug.Log("You forgot to attach a Casting sound to SpellControl!");
-            }
 
             primedSpell = "";
 
@@ -267,14 +243,6 @@ public class SpellControl : MonoBehaviour {
             WandColor.updateColor("");
             Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
             GameObject instance = Instantiate(ice, wandTip.transform.position, wandTip.transform.rotation * wand_quat);
-            if (CastSound != null)
-            {
-                AudioSource.PlayClipAtPoint(CastSound, instance.transform.position, 0.5f);
-            }
-            else
-            {
-                Debug.Log("You forgot to attach a Casting sound to SpellControl!");
-            }
 
             primedSpell = "";
 
@@ -303,14 +271,6 @@ public class SpellControl : MonoBehaviour {
             InvokeRepeating("InstantiateLightning", 0.0f, 0.15f);
             //InvokeRepeating("UpdateLightningLine", 0.0f, 0.01f);
             Invoke("EndLightning", 3.0f);
-            if (CastSound != null)
-            {
-                AudioSource.PlayClipAtPoint(CastSound, instance.transform.position, 0.5f);
-            }
-            else
-            {
-                Debug.Log("You forgot to attach a Casting sound to SpellControl!");
-            }
 
             primedSpell = "";
 

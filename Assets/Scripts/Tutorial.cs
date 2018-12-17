@@ -8,6 +8,7 @@ public class Tutorial : MonoBehaviour {
 
     public GameObject dummy;
     public Text tutorialText;
+    public Text continueText;
     public Image tutorialImage;
 
     public Sprite fireball;
@@ -17,12 +18,12 @@ public class Tutorial : MonoBehaviour {
     public Sprite air;
     public Sprite shield;
 
-    string text0 = "Welcome to 1HP Wizard! Press A to move on in the tutorial."; // 0
+    string text0 = "Welcome to 1HP Wizard!"; // 0
     string text1 = "Learn to cast spells to defeat your enemies on this exciting journey. \r\n \r\nBut be careful! You only have one life. #yolo"; // 1
-    string text2 = "To cast a spell, hold down the secondary hand trigger while tracing the spell gesture with your wand. \r\n \r\nPress the secondary index trigger when you're ready to shoot."; // 2
+    string text2 = "To cast a spell, hold down the button your right middle finger is on while tracing the spell gesture with your wand. \r\n \r\nPress the button your right index finger is on when you're ready to shoot."; // 2
     string text3 = "Your magic regenerates but it is limited so choose your spells wisely! \r\n \r\nThe wand glows to indicate how much magic you have"; // 3
     string text4 = "Let's practice our spells now!"; // 4
-    string text5 = "Point and shoot: low cost, low damage. \r\n No gesture, just press the secondary index trigger."; // 5
+    string text5 = "Point and shoot: low cost, low damage. \r\n No gesture, just press the button with your right index finger."; // 5
     string text6 = "Fireball: medium cost, offensive spell";
     string text7 = "Lightning: high cost, offensive spell";
     string text8 = "Earth: medium cost, utility spell";
@@ -34,6 +35,7 @@ public class Tutorial : MonoBehaviour {
     string text14 = "";
     string text15 = "";
 
+    string continueTextContent = "Press A to continue.";
 
     public int stage;
 
@@ -43,6 +45,8 @@ public class Tutorial : MonoBehaviour {
         stage = 0;
         tutorialText.text = text0;
         tutorialImage.enabled = false;
+        continueText.text = continueTextContent;
+        continueText.enabled = true;
         dummy.SetActive(false);
 	}
 	
@@ -76,6 +80,7 @@ public class Tutorial : MonoBehaviour {
                 tutorialText.text = text4;
                 break;
             case 5:
+                continueText.enabled = false;
                 dummy.SetActive(true);
                 tutorialText.text = text5;
                 break;
@@ -93,6 +98,7 @@ public class Tutorial : MonoBehaviour {
                 tutorialImage.sprite = earth;
                 break;
             case 9:
+                dummy.SetActive(false);
                 tutorialText.text = text9;
                 tutorialImage.sprite = ice;
                 break;
@@ -105,7 +111,7 @@ public class Tutorial : MonoBehaviour {
                 tutorialImage.sprite = shield;
                 break;
             case 12:
-                dummy.SetActive(false);
+                continueText.enabled = true;
                 tutorialText.text = text12;
                 tutorialImage.enabled = false;
                 break;
