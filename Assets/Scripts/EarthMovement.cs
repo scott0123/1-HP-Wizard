@@ -7,6 +7,7 @@ public class EarthMovement : MonoBehaviour
 
     private float speed = 0.0f;
     private float time = 0.0f;
+    private float topheight;
 
     void Start()
     {
@@ -32,6 +33,7 @@ public class EarthMovement : MonoBehaviour
         {
             Debug.Log("You forgot to attach a sound to the Earth spell!");
         }
+        topheight = this.transform.position.y;
         Color color = this.GetComponent<Renderer>().material.color;
         this.GetComponent<Renderer>().material.color = new Color(color.r, color.g, color.b, 1);
         this.transform.position += Vector3.down * 4.1f;
@@ -41,7 +43,7 @@ public class EarthMovement : MonoBehaviour
     void Move()
     {
         time += Time.deltaTime;
-        if (time < 10.0f && this.transform.position.y < 2)
+        if (time < 10.0f && this.transform.position.y < topheight)
         {
             transform.position += transform.up * speed * Time.deltaTime;
         }

@@ -16,7 +16,6 @@ public class SpellControl : MonoBehaviour {
     public GameObject shield;
     public GameObject lightningLine;
     public GameObject aimLine;
-    public GameObject earthAim;
     public GameObject groundPlane;
 
     public Text optionalUI;
@@ -136,7 +135,7 @@ public class SpellControl : MonoBehaviour {
         WandColor.updateColor("Air");
         Vector3 wandAngle = new Vector3(0, wandTip.transform.rotation.eulerAngles.y, 0);
         Quaternion direction = Quaternion.Euler(wandAngle);
-        Ray ray = new Ray(new Vector3(wandTip.transform.position.x, 2, wandTip.transform.position.z), Quaternion.Euler(wandAngle) * transform.forward);
+        Ray ray = new Ray(wandTip.transform.position, Quaternion.Euler(wandAngle) * transform.forward);
         Vector3 airLocation = ray.GetPoint(3);
         if (instance == null)
         {
@@ -200,26 +199,27 @@ public class SpellControl : MonoBehaviour {
         WandColor.updateColor("Earth");
         if (instance == null)
         {
-            instance = Instantiate(earthAim, Vector3.up * -2.1f, Quaternion.identity);
+            instance = Instantiate(earth, Vector3.up * -2.1f, Quaternion.identity);
+            instance.GetComponent<Rigidbody>().detectCollisions = true;
         }
         Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
         Ray aim = new Ray(wandTip.transform.position, wandTip.transform.rotation * wand_quat * transform.forward);
-        Plane ground = new Plane(Vector3.up, Vector3.zero);
-        float enter = 0.0f;
-        if (ground.Raycast(aim, out enter))
+        RaycastHit hit;
+
+        if (Physics.Raycast(aim, out hit) && hit.collider.gameObject.tag == "Ground")
         {
-            Vector3 hitPoint = aim.GetPoint(enter);
-            if (Vector3.Distance(hitPoint, new Vector3(wandTip.transform.position.x, 0, wandTip.transform.position.z)) > 2)
+            if (Vector3.Distance(hit.point, wandTip.transform.position) > 2)
             {
-                instance.transform.position = new Vector3(hitPoint.x, 2, hitPoint.z);
-            } else
+                instance.transform.position = new Vector3(hit.point.x, hit.point.y + 2, hit.point.z);
+            }
+            else
             {
                 Vector3 wandAngle = new Vector3(0, wandTip.transform.rotation.eulerAngles.y, 0);
                 Ray outward = new Ray(new Vector3(wandTip.transform.position.x, 0, wandTip.transform.position.z), Quaternion.Euler(wandAngle) * transform.forward);
-                hitPoint = outward.GetPoint(2);
-                instance.transform.position = new Vector3(hitPoint.x, 2, hitPoint.z);
+                Vector3 hitPoint = outward.GetPoint(2);
+                instance.transform.position = new Vector3(hitPoint.x, hitPoint.y + 2, hitPoint.z);
             }
-        }
+           }
     }
 
     void CastEarth()
@@ -227,9 +227,7 @@ public class SpellControl : MonoBehaviour {
         if (mana >= 10)
         {
             WandColor.updateColor("");
-            Vector3 earthPos = new Vector3(instance.transform.position.x, instance.transform.position.y, instance.transform.position.z);
-            Destroy(instance);
-            instance = Instantiate(earth, earthPos + Vector3.up * -2.1f, Quaternion.identity);
+            instance.GetComponent<Rigidbody>().detectCollisions = true;
             instance.SendMessage("Cast");
             instance = null;
 
