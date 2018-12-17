@@ -170,7 +170,6 @@ public class SpellControl : MonoBehaviour {
     void ActivateFireball()
     {
         WandColor.updateColor("Fireball");
-        wandTip.GetComponent<WandColor>().SendMessage("updateColor", "Fireball");
     }
 
     void CastFireball()
