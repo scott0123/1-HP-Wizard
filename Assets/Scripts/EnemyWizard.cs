@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyWizard : RangedEnemy {
-    public static int minionCount;
+    public static int minionCount = 0;
     private static bool invincible;
 
     // Use this for initialization
@@ -31,7 +31,7 @@ public class EnemyWizard : RangedEnemy {
 
         if (minionCount == 0)
         {
-            attackDistance = 8.0f;
+            attackDistance = 11.0f;
             invincible = false;
             fireInterval = 1.0f;
             fireTimer = fireInterval;

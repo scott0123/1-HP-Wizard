@@ -55,6 +55,8 @@ public class IceMovement : MonoBehaviour
             Collider[] explosionVictims = Physics.OverlapSphere(this.transform.position, 2.0F);
             foreach (Collider victim in explosionVictims)
             {
+                if (victim.transform.tag != "Enemy")
+                    continue;
                 victim.transform.SendMessage("Freeze", "Ice");
             }
             Invoke("SelfDestruct", 0.2f);
