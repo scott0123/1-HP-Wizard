@@ -27,8 +27,8 @@ public class LevelScript : MonoBehaviour {
             EnemyWizard.minionCount = 10;
         else if (level == 3)
             EnemyWizard.minionCount = 20;
-        spawnInterval = 20.0f;
-        spawnTimer = spawnInterval;
+        spawnInterval = 12.0f;
+        spawnTimer = 5;
         wave = 0;
     }
 
