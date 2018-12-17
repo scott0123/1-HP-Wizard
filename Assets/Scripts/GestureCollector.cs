@@ -43,10 +43,8 @@ public class GestureCollector : MonoBehaviour {
         
         if (OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger) > 0) { // Right, Side-button
             Collect();
-            SpellControl.aimLine.SetActive(false);
         } else {
             StopCollecting();
-            SpellControl.aimLine.SetActive(true);
         }
         
         /*if (OVRInput.GetDown(OVRInput.Button.One)) { // Right, A
