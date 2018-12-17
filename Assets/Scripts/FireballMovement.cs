@@ -4,11 +4,14 @@ using System.Collections;
 public class FireballMovement : MonoBehaviour
 {
 
+    public AudioClip fireballClip;
+
     private float speed;
     bool exploding = false;
     float explodeTime = 0.2f;
     void Start()
     {
+        AudioSource.PlayClipAtPoint(fireballClip, this.transform.position, 1.0f);
         speed = 5.0f;
         Invoke("SelfDestruct", 10.0f);
     }

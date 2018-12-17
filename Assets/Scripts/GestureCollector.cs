@@ -14,6 +14,9 @@ public class GestureCollector : MonoBehaviour {
     public GameObject gestureTrail;
     public string label;
     public Text ui;
+    public AudioSource spellStatus;
+    public AudioClip spellSuccess;
+    public AudioClip spellFailure;
 
     private int positive;
     private int negative;
@@ -136,6 +139,7 @@ public class GestureCollector : MonoBehaviour {
                 Debug.Log(recognizedGesture);
                 if(recognizedGesture == "Error"){
                     recognized = false;
+                    spellStatus.clip = spellFailure;
                 }
             }
         }
@@ -144,7 +148,9 @@ public class GestureCollector : MonoBehaviour {
             sc.primedSpell = recognizedGesture;
             tr.startColor = new Color(0, 1, 0, 1);
             tr.endColor = new Color(0, 1, 0, 1);
+            spellStatus.clip = spellSuccess;
         }
+        spellStatus.Play();
         StartCoroutine(DestroyTrail(trail));
     }
     IEnumerator DestroyTrail(GameObject trail)
