@@ -24,10 +24,10 @@ public class LevelScript : MonoBehaviour {
         else if (level == 1)
             EnemyWizard.minionCount = 6;
         else if (level == 2)
-            EnemyWizard.minionCount = 10;
+            EnemyWizard.minionCount = 11;
         else if (level == 3) {
             Debug.Log("Test 1");
-            EnemyWizard.minionCount = 20;
+            EnemyWizard.minionCount = 19;
         }
         spawnInterval = 12.0f;
         spawnTimer = 5.0f;
