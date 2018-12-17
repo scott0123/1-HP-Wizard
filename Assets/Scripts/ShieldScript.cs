@@ -16,7 +16,7 @@ public class ShieldScript : MonoBehaviour {
 
     void GetHit()
     {
-        timeLeft -= 5.0f;
+        timeLeft -= 3.0f;
     }
 
     void Activate()
