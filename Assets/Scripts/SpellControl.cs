@@ -15,7 +15,7 @@ public class SpellControl : MonoBehaviour {
     public GameObject wandTip;
     public GameObject shield;
     public GameObject lightningLine;
-    public static GameObject aimLine;
+    public GameObject aimLine;
 
     public Text optionalUI;
 
@@ -36,7 +36,7 @@ public class SpellControl : MonoBehaviour {
 
         instance = null;
         aimRay = Instantiate(aimLine, wandTip.transform.position, Quaternion.identity);
-        aimRay.GetComponent<LineRenderer>().material.color = new Color(1, 1, 1, 0.03f);
+        aimRay.GetComponent<LineRenderer>().material.color = new Color(1, 1, 1, 0.1f);
 
         primedSpell = "";
 
@@ -44,6 +44,17 @@ public class SpellControl : MonoBehaviour {
         manaRegenTimer = 1.0f;
     }
     void Update() {
+        if (OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger) > 0)
+        {
+            if (aimRay.activeSelf)
+                aimRay.SetActive(false);
+        }
+        else
+        {
+            if (!aimRay.activeSelf)
+                aimRay.SetActive(true);
+        }
+
         if (optionalUI != null)
         {
             optionalUI.text = "Mana: " + mana;

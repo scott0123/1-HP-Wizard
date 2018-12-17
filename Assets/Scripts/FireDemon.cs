@@ -30,13 +30,14 @@ public class FireDemon : RangedEnemy {
         Move();
     }
 
-    protected override Attack(){
+    protected override void Attack(){
 
         if(!attackMode){
             attackMode = true;
             Animator ani = this.GetComponentInChildren<Animator>();
             ani.SetBool("attack", true);
         }
-        parent.Attack()
+
+        base.Attack();
     }
 }
