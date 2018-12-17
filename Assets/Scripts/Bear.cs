@@ -11,7 +11,7 @@ public class Bear : MeleeEnemy {
         agent = GetComponent<NavMeshAgent>();
         agent.destination = player.transform.position;
 
-        attackDistance = 3.0f;
+        attackDistance = 3.5f;
         hp = 10;
     }
 	
@@ -23,13 +23,15 @@ public class Bear : MeleeEnemy {
     protected override void Attack()
     {
         Animator ani = this.GetComponentInChildren<Animator>();
-        ani.SetTrigger("attack");
-        Invoke("KillPlayer", 0.8f);
+        ani.SetBool("attack", true);
+        Invoke("KillPlayer", 1.8f);
     }
 
     void KillPlayer(){
-        
+
         //End game round
+        Animator ani = this.GetComponentInChildren<Animator>();
+        ani.SetBool("attack", false);
         Debug.Log("You Died.");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

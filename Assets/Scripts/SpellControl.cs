@@ -15,6 +15,7 @@ public class SpellControl : MonoBehaviour {
     public GameObject wandTip;
     public GameObject shield;
     public GameObject lightningLine;
+    public static GameObject aimLine;
 
     public Text optionalUI;
 
@@ -34,8 +35,8 @@ public class SpellControl : MonoBehaviour {
         mana = 20;
 
         instance = null;
-        aimRay = Instantiate(lightningLine, wandTip.transform.position, Quaternion.identity);
-        aimRay.GetComponent<LineRenderer>().material.color = new Color(1, 1, 1, 0.07f);
+        aimRay = Instantiate(aimLine, wandTip.transform.position, Quaternion.identity);
+        aimRay.GetComponent<LineRenderer>().material.color = new Color(1, 1, 1, 0.03f);
 
         primedSpell = "";
 
@@ -55,6 +56,8 @@ public class SpellControl : MonoBehaviour {
             manaRegenTimer = manaRegenInterval;
         }
         DetectTrigger();
+
+
         UpdateAimLine();
     }
 
