@@ -183,7 +183,7 @@ public class LevelScript : MonoBehaviour {
                 GameObject instanceInferno2 = Instantiate(inferno, new Vector3(56, 6, 2), Quaternion.identity);
                 instanceInferno2.GetComponent<FireDemon>().player = player;
             }
-            else
+            else if (wave == 4)
             {
                 GameObject instanceWizard = Instantiate(wizard, new Vector3(-49, 10, -9), Quaternion.identity);
                 instanceWizard.GetComponent<EnemyWizard>().player = player;
@@ -253,7 +253,7 @@ public class LevelScript : MonoBehaviour {
                 GameObject instanceJaguar = Instantiate(jaguar, new Vector3(-47, 22, 8), Quaternion.identity);
                 instanceJaguar.GetComponent<Jaguar>().player = player;
             }
-            else
+            else if (wave == 4)
             {
                 GameObject instanceWizard = Instantiate(wizard, new Vector3(24, 20, 45), Quaternion.identity);
                 instanceWizard.GetComponent<EnemyWizard>().player = player;
