@@ -11,20 +11,8 @@ public class EarthMovement : MonoBehaviour
 
     void Start()
     {
-        Color color = this.GetComponent<Renderer>().material.color;
-        this.GetComponent<Renderer>().material.color = new Color(color.r, color.g, color.b, 0.1f);
-    }
-
-    void FixedUpdate()
-    {
-        if (this.GetComponent<Rigidbody>().detectCollisions == true)
-        {
-            Move();
-        }
-    }
-
-    void Cast()
-    {
+        topheight = this.transform.position.y + 4.1f;
+        speed = 3.0f;
         if (earthClip != null)
         {
             AudioSource.PlayClipAtPoint(earthClip, this.transform.position, 1.0f);
@@ -33,11 +21,11 @@ public class EarthMovement : MonoBehaviour
         {
             Debug.Log("You forgot to attach a sound to the Earth spell!");
         }
-        topheight = this.transform.position.y;
-        Color color = this.GetComponent<Renderer>().material.color;
-        this.GetComponent<Renderer>().material.color = new Color(color.r, color.g, color.b, 1);
-        this.transform.position += Vector3.down * 4.1f;
-        speed = 3.0f;
+    }
+
+    void FixedUpdate()
+    {
+        Move();
     }
 
     void Move()

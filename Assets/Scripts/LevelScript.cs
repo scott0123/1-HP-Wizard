@@ -15,7 +15,7 @@ public class LevelScript : MonoBehaviour {
     protected double spawnTimer;
     private int wave;
 
-    public static int level = 2;
+    public static int level = -1;
 
     // Use this for initialization
     void Start () {
@@ -35,6 +35,8 @@ public class LevelScript : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("Level: " + level);
+        Debug.Log("Minions: " + EnemyWizard.minionCount);
         if (EnemyWizard.minionCount <= -2)
         {
             level++;
@@ -43,7 +45,7 @@ public class LevelScript : MonoBehaviour {
             if (level == 1)
             {
                 EnemyWizard.minionCount = 6; //arbitrary
-                SceneManager.LoadScene("EnemyTestScene", LoadSceneMode.Single);
+                SceneManager.LoadScene("Level1", LoadSceneMode.Single);
             } else if (level == 2)
             {
                 EnemyWizard.minionCount = 10; //arbitrary
@@ -137,7 +139,54 @@ public class LevelScript : MonoBehaviour {
 
     void Level2()
     {
-        
+        spawnTimer -= Time.deltaTime;
+        if (spawnTimer <= 0)
+        {
+            if (wave == 0)
+            {
+                GameObject instanceBear = Instantiate(bear, new Vector3(-51, 10, -8), Quaternion.identity);
+                instanceBear.GetComponent<Bear>().player = player;
+                GameObject instanceJaguar = Instantiate(jaguar, new Vector3(-49, 10, -9), Quaternion.identity);
+                instanceJaguar.GetComponent<Jaguar>().player = player;
+                GameObject instanceBear1 = Instantiate(bear, new Vector3(56, 6, 2), Quaternion.identity);
+                instanceBear1.GetComponent<Bear>().player = player;
+            }
+            else if (wave == 1)
+            {
+                GameObject instanceBear = Instantiate(bear, new Vector3(-51, 10, -8), Quaternion.identity);
+                instanceBear.GetComponent<Bear>().player = player;
+
+                GameObject instanceInferno = Instantiate(inferno, new Vector3(56, 6, 2), Quaternion.identity);
+                instanceInferno.GetComponent<FireDemon>().player = player;
+            }
+            else if (wave == 2)
+            {
+                GameObject instanceJaguar = Instantiate(jaguar, new Vector3(-49, 10, -9), Quaternion.identity);
+                instanceJaguar.GetComponent<Jaguar>().player = player;
+
+                GameObject instanceImp0 = Instantiate(imp, new Vector3(56, 6, 2), Quaternion.identity);
+                instanceImp0.GetComponent<Imp>().player = player;
+                GameObject instanceImp1 = Instantiate(imp, new Vector3(54, 6, 0), Quaternion.identity);
+                instanceImp1.GetComponent<Imp>().player = player;
+                GameObject instanceImp2 = Instantiate(imp, new Vector3(55, 6, 1), Quaternion.identity);
+                instanceImp2.GetComponent<Imp>().player = player;
+            }
+            else if (wave == 3)
+            {
+                GameObject instanceInferno = Instantiate(inferno, new Vector3(-49, 10, -9), Quaternion.identity);
+                instanceInferno.GetComponent<FireDemon>().player = player;
+
+                GameObject instanceInferno2 = Instantiate(inferno, new Vector3(56, 6, 2), Quaternion.identity);
+                instanceInferno2.GetComponent<FireDemon>().player = player;
+            }
+            else
+            {
+                GameObject instanceWizard = Instantiate(wizard, new Vector3(-49, 10, -9), Quaternion.identity);
+                instanceWizard.GetComponent<EnemyWizard>().player = player;
+            }
+            spawnTimer = spawnInterval;
+            wave++;
+        }
     }
 
     void Level3()

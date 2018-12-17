@@ -17,7 +17,7 @@ public class LightningMovement : MonoBehaviour
         {
             Debug.Log("You forgot to attach a sound to the Lightning spell!");
         }
-        speed = 50.0f; ;
+        speed = 10.0f; ;
         Invoke("SelfDestruct", 10.0f);
     }
 

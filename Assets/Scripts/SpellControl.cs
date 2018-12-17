@@ -9,9 +9,11 @@ public class SpellControl : MonoBehaviour {
     public GameObject spell;
     public GameObject fireball;
     public GameObject earth;
+    public GameObject earthAim;
     public GameObject ice;
     public GameObject air;
     public GameObject lightning;
+    public GameObject lightningVisual;
     public GameObject wandTip;
     public GameObject shield;
     public GameObject lightningLine;
@@ -133,7 +135,7 @@ public class SpellControl : MonoBehaviour {
     void ActivateAir()
     {
         WandColor.updateColor("Air");
-        Vector3 wandAngle = new Vector3(0, wandTip.transform.rotation.eulerAngles.y, 0);
+        Vector3 wandAngle = new Vector3(wandTip.transform.rotation.eulerAngles.x - 30.0f, wandTip.transform.rotation.eulerAngles.y, 0);
         Quaternion direction = Quaternion.Euler(wandAngle);
         Ray ray = new Ray(wandTip.transform.position, Quaternion.Euler(wandAngle) * transform.forward);
         Vector3 airLocation = ray.GetPoint(3);
@@ -199,8 +201,9 @@ public class SpellControl : MonoBehaviour {
         WandColor.updateColor("Earth");
         if (instance == null)
         {
-            instance = Instantiate(earth, Vector3.up * -2.1f, Quaternion.identity);
-            instance.GetComponent<Rigidbody>().detectCollisions = true;
+            instance = Instantiate(earthAim, Vector3.up * -2.1f, Quaternion.identity);
+            Color color = instance.GetComponent<Renderer>().material.color;
+            instance.GetComponent<Renderer>().material.color = new Color(color.r, color.g, color.b, 0.1f);
         }
         Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
         Ray aim = new Ray(wandTip.transform.position, wandTip.transform.rotation * wand_quat * transform.forward);
@@ -227,8 +230,8 @@ public class SpellControl : MonoBehaviour {
         if (mana >= 10)
         {
             WandColor.updateColor("");
-            instance.GetComponent<Rigidbody>().detectCollisions = true;
-            instance.SendMessage("Cast");
+            GameObject earthObject = Instantiate(earth, instance.transform.position + Vector3.down * 4.1f, Quaternion.identity);
+            Destroy(instance);
             instance = null;
 
             primedSpell = "";
@@ -270,12 +273,6 @@ public class SpellControl : MonoBehaviour {
     void ActivateLightning()
     {
         WandColor.updateColor("Lightning");
-        /*if (instance == null)
-        {
-            instance = Instantiate(lightningLine, wandTip.transform.position, Quaternion.identity);
-            instance.GetComponent<LineRenderer>().material.color = new Color(1, 1, 0, 0.1f);
-        }
-        UpdateLightningLine();*/
     }
 
     void CastLightning()
@@ -283,9 +280,8 @@ public class SpellControl : MonoBehaviour {
         if (mana >= 10)
         {
             WandColor.updateColor("");
-            //instance.GetComponent<LineRenderer>().material.color = new Color(1, 1, 0, 1);
-            InvokeRepeating("InstantiateLightning", 0.0f, 0.15f);
-            //InvokeRepeating("UpdateLightningLine", 0.0f, 0.01f);
+            Quaternion wand_quat = Quaternion.Euler(new Vector3(-120.0f, 0, 0));
+            InvokeRepeating("InstantiateLightning", 0.0f, 0.3f);
             Invoke("EndLightning", 3.0f);
 
             primedSpell = "";
@@ -295,18 +291,18 @@ public class SpellControl : MonoBehaviour {
         }
     }
 
-    void UpdateLightningLine()
+    void UpdateLightningVisual()
     {
-        Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
-        Ray ray = new Ray(wandTip.transform.position, wandTip.transform.rotation * wand_quat * transform.forward);
-        Vector3 endPoint = ray.GetPoint(50.0f);
-        Vector3[] positions = new Vector3[] { wandTip.transform.position, endPoint };
-        instance.GetComponent<LineRenderer>().SetPositions(positions);
+        Quaternion wand_quat = Quaternion.Euler(new Vector3(-120.0f, 0, 0));
+        instance.transform.position = wandTip.transform.position;
+        instance.transform.rotation = wandTip.transform.rotation * wand_quat;
     }
 
     void InstantiateLightning()
     {
         Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
+        Quaternion visual_offset = Quaternion.Euler(new Vector3(-90.0f, 0, 0));
+        instance = Instantiate(lightningVisual, wandTip.transform.position, wandTip.transform.rotation * wand_quat * visual_offset);
         GameObject bolt = Instantiate(lightning, wandTip.transform.position, wandTip.transform.rotation * wand_quat);
     }
 

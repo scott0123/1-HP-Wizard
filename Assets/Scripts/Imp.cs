@@ -28,6 +28,5 @@ public class Imp : MeleeEnemy {
 	// Update is called once per frame
 	void Update () {
         Move();
-        CheckDead();
     }
 }

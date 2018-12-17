@@ -12,7 +12,7 @@ public class Jaguar : MeleeEnemy {
         agent.destination = player.transform.position;
         agent.speed *= 1.3f;
 
-        attackDistance = 2.0f;
+        attackDistance = 3.8f;
         hp = 5;
     }
 

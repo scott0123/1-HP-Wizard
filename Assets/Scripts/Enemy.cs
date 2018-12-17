@@ -26,8 +26,8 @@ public abstract class Enemy : MoveableObject {
     {
         if (hp <= 0)
         {
-            gameObject.SetActive(false);
             EnemyWizard.minionCount--;
+            Destroy(gameObject);
         }
     }
 
