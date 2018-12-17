@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyWizard : RangedEnemy {
-    public static int minionCount;
+    public static int minionCount = 0;
     private static bool invincible;
 
     // Use this for initialization
