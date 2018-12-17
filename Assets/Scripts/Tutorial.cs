@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Oculus;
+using UnityEngine.SceneManagement;
 
 public class Tutorial : MonoBehaviour {
 
@@ -119,7 +120,7 @@ public class Tutorial : MonoBehaviour {
                 tutorialText.text = text13;
                 break;
             default:
-                // TODO: move on to the game
+				SceneManager.LoadScene("Level1", LoadSceneMode.Single);
                 break;
         }
     }
