@@ -11,7 +11,7 @@ public class Bear : MeleeEnemy {
         agent = GetComponent<NavMeshAgent>();
         agent.destination = player.transform.position;
 
-        attackDistance = 3.5f;
+        attackDistance = 4f;
         hp = 10;
     }
 	
@@ -24,7 +24,7 @@ public class Bear : MeleeEnemy {
     {
         Animator ani = this.GetComponentInChildren<Animator>();
         ani.SetBool("attack", true);
-        Invoke("KillPlayer", 1.8f);
+        Invoke("KillPlayer", 1.0f);
     }
 
     void KillPlayer(){

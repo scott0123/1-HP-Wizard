@@ -16,6 +16,7 @@ public class SpellControl : MonoBehaviour {
     public GameObject shield;
     public GameObject lightningLine;
     public GameObject aimLine;
+    public GameObject earthAim;
 
     public Text optionalUI;
 
@@ -80,8 +81,6 @@ public class SpellControl : MonoBehaviour {
         if (OVRInput.GetDown(OVRInput.Button.Two))
         {
             primedSpell = "";
-            if (instance)
-                EndLightning();
             WandColor.updateColor("");
         }
 
@@ -132,7 +131,6 @@ public class SpellControl : MonoBehaviour {
 
     void ActivateAir()
     {
-        Invoke("EndLightning", 0.01f);
         WandColor.updateColor("Air");
         Vector3 wandAngle = new Vector3(0, wandTip.transform.rotation.eulerAngles.y, 0);
         Quaternion direction = Quaternion.Euler(wandAngle);
@@ -176,7 +174,6 @@ public class SpellControl : MonoBehaviour {
 
     void ActivateFireball()
     {
-        Invoke("EndLightning", 0.01f);
         WandColor.updateColor("Fireball");
         wandTip.GetComponent<WandColor>().SendMessage("updateColor", "Fireball");
     }
@@ -206,13 +203,10 @@ public class SpellControl : MonoBehaviour {
 
     void ActivateEarth()
     {
-        Invoke("EndLightning", 0.01f);
         WandColor.updateColor("Earth");
         if (instance == null)
         {
-            instance = Instantiate(earth, Vector3.up * -2.1f, Quaternion.identity);
-            instance.GetComponent<Rigidbody>().detectCollisions = false;
-            instance.GetComponent<CapsuleCollider>().enabled = false;
+            instance = Instantiate(earthAim, Vector3.up * -2.1f, Quaternion.identity);
         }
         Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
         Ray aim = new Ray(wandTip.transform.position, wandTip.transform.rotation * wand_quat * transform.forward);
@@ -239,8 +233,9 @@ public class SpellControl : MonoBehaviour {
         if (mana >= 10)
         {
             WandColor.updateColor("");
-            instance.GetComponent<CapsuleCollider>().enabled = true;
-            instance.GetComponent<Rigidbody>().detectCollisions = true;
+            Vector3 earthPos = new Vector3(instance.transform.position.x, instance.transform.position.y, instance.transform.position.z);
+            Destroy(instance);
+            instance = Instantiate(earth, earthPos + Vector3.up * -2.1f, Quaternion.identity);
             instance.SendMessage("Cast");
             instance = null;
             if (CastSound != null)
@@ -261,7 +256,6 @@ public class SpellControl : MonoBehaviour {
 
     void ActivateIce()
     {
-        EndLightning();
         WandColor.updateColor("Ice");
     }
 
@@ -291,12 +285,12 @@ public class SpellControl : MonoBehaviour {
     void ActivateLightning()
     {
         WandColor.updateColor("Lightning");
-        if (instance == null)
+        /*if (instance == null)
         {
             instance = Instantiate(lightningLine, wandTip.transform.position, Quaternion.identity);
             instance.GetComponent<LineRenderer>().material.color = new Color(1, 1, 0, 0.1f);
         }
-        UpdateLightningLine();
+        UpdateLightningLine();*/
     }
 
     void CastLightning()
