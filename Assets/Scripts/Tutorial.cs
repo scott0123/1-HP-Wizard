@@ -30,12 +30,12 @@ public class Tutorial : MonoBehaviour {
     string text9 = "Ice: medium cost, utility spell";
     string text10 = "Air: medium cost, defensive spell";
     string text11 = "Shield: medium cost, defensive spell";
-    string text12 = "Congratulations! You've passed the tutorial. \r\n Now you can use any of the spells you've learned to defeat your opponents!";
+    string text12 = "Congratulations! You've passed the tutorial.";
     string text13 = "";
     string text14 = "";
     string text15 = "";
 
-    string continueTextContent = "Press A to continue.";
+    string continueTextContent = "Press A to continue";
 
     public int stage;
 
@@ -98,7 +98,6 @@ public class Tutorial : MonoBehaviour {
                 tutorialImage.sprite = earth;
                 break;
             case 9:
-                dummy.SetActive(false);
                 tutorialText.text = text9;
                 tutorialImage.sprite = ice;
                 break;
@@ -111,6 +110,7 @@ public class Tutorial : MonoBehaviour {
                 tutorialImage.sprite = shield;
                 break;
             case 12:
+                dummy.SetActive(false);
                 continueText.enabled = true;
                 tutorialText.text = text12;
                 tutorialImage.enabled = false;
