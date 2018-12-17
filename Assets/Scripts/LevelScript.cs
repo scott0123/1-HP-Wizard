@@ -35,6 +35,8 @@ public class LevelScript : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("Level: " + level);
+        Debug.Log("Minions: " + EnemyWizard.minionCount);
         if (EnemyWizard.minionCount <= -2)
         {
             level++;
