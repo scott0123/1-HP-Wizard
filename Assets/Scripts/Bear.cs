@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class Bear : MeleeEnemy {
 
@@ -10,7 +11,7 @@ public class Bear : MeleeEnemy {
         agent = GetComponent<NavMeshAgent>();
         agent.destination = player.transform.position;
 
-        attackDistance = 1.7f;
+        attackDistance = 3.0f;
         hp = 10;
     }
 	
@@ -22,8 +23,8 @@ public class Bear : MeleeEnemy {
     protected override void Attack()
     {
         Animator ani = this.GetComponentInChildren<Animator>();
-        ani.SetTrigger("attack")
-        Invoke("KillPlayer", 0.8f)
+        ani.SetTrigger("attack");
+        Invoke("KillPlayer", 0.8f);
     }
 
     void KillPlayer(){

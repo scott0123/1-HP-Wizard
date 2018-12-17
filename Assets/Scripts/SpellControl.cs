@@ -19,6 +19,7 @@ public class SpellControl : MonoBehaviour {
     public Text optionalUI;
 
     GameObject instance;
+    GameObject aimRay;
     
 
     public string primedSpell;
@@ -33,6 +34,9 @@ public class SpellControl : MonoBehaviour {
         mana = 20;
 
         instance = null;
+        aimRay = Instantiate(lightningLine, wandTip.transform.position, Quaternion.identity);
+        aimRay.GetComponent<LineRenderer>().material.color = new Color(1, 1, 1, 0.07f);
+
         primedSpell = "";
 
         manaRegenInterval = 1.0f;
@@ -51,6 +55,7 @@ public class SpellControl : MonoBehaviour {
             manaRegenTimer = manaRegenInterval;
         }
         DetectTrigger();
+        UpdateAimLine();
     }
 
     void DetectTrigger()
@@ -79,8 +84,17 @@ public class SpellControl : MonoBehaviour {
         }
 
     }
-    
-	void CastSpell() {
+
+    void UpdateAimLine()
+    {
+        Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
+        Ray ray = new Ray(wandTip.transform.position, wandTip.transform.rotation * wand_quat * transform.forward);
+        Vector3 endPoint = ray.GetPoint(50.0f);
+        Vector3[] positions = new Vector3[] { wandTip.transform.position, endPoint };
+        aimRay.GetComponent<LineRenderer>().SetPositions(positions);
+    }
+
+    void CastSpell() {
         if (mana >= 1)
         {
             Quaternion wand_quat = Quaternion.Euler(new Vector3(-30.0f, 0, 0));
