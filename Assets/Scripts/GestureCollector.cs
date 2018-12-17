@@ -43,11 +43,13 @@ public class GestureCollector : MonoBehaviour {
         
         if (OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger) > 0) { // Right, Side-button
             Collect();
+            SpellControl.aimLine.SetActive(false);
         } else {
             StopCollecting();
+            SpellControl.aimLine.SetActive(true);
         }
         
-        if (OVRInput.GetDown(OVRInput.Button.One)) { // Right, A
+        /*if (OVRInput.GetDown(OVRInput.Button.One)) { // Right, A
             Debug.Log("Labeled True");
             LabelTrue();
         }
@@ -58,7 +60,7 @@ public class GestureCollector : MonoBehaviour {
         if (OVRInput.GetDown(OVRInput.Button.Three)) { // Left, X
             Debug.Log("Saving");
             Save();
-        }
+        }*/
     }
 
     void Collect() {
