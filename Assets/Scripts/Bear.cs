@@ -24,7 +24,7 @@ public class Bear : MeleeEnemy {
     {
         Animator ani = this.GetComponentInChildren<Animator>();
         ani.SetBool("attack", true);
-        Invoke("KillPlayer", 1.0f);
+        Invoke("KillPlayer", 1.2f);
     }
 
     void KillPlayer(){

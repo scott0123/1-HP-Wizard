@@ -9,8 +9,10 @@ public class FireballMovement : MonoBehaviour
     private float speed;
     bool exploding = false;
     float explodeTime = 0.2f;
+    Color color;
     void Start()
     {
+        color = this.GetComponent<MeshRenderer>().material.color;
         if (fireballClip != null)
         {
             AudioSource.PlayClipAtPoint(fireballClip, this.transform.position, 1.0f);
@@ -40,31 +42,26 @@ public class FireballMovement : MonoBehaviour
         {
             explodeTime -= Time.deltaTime;
         }
-        this.GetComponent<MeshRenderer>().material.color = new Color(1, 0, 0, explodeTime);
+        this.GetComponent<MeshRenderer>().material.color = new Color(color.r, color.g, color.b, explodeTime);
         this.transform.localScale = Vector3.one * ((0.2f - explodeTime) / 0.2f) * 4;
     }
 
     void OnTriggerEnter(Collider other)
     {
-        speed = 0.0f;
-        exploding = true;
-        if (other.transform.tag == "Target")
+        if (other.transform.tag == "Enemy")
         {
-            Collider[] explosionVictims = Physics.OverlapSphere(this.transform.position, 2.0F);
-            foreach (Collider victim in explosionVictims)
-            {
-                victim.transform.SendMessage("Death", "Fireball");
-            }
-            Invoke("SelfDestruct", 0.2f);
-        }
-        else
-        {
+            speed = 0.0f;
+            exploding = true;
             Collider[] explosionVictims = Physics.OverlapSphere(this.transform.position, 2.0F);
             foreach (Collider victim in explosionVictims)
             {
                 victim.transform.SendMessage("GetHit", "Fireball");
             }
             Invoke("SelfDestruct", 0.2f);
+        }
+        else if (other.transform.tag == "Terrain" || other.transform.tag == "Ground")
+        {
+            SelfDestruct();
         }
     }
 

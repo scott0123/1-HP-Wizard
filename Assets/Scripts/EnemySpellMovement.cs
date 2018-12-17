@@ -25,14 +25,12 @@ public class EnemySpellMovement : MonoBehaviour
             other.transform.SendMessage("GetHit", "Spell");
             SelfDestruct();
         }
-
         else if (other.transform.tag == "PlayerTarget")
         {
             Debug.Log("You Died.");
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-
-        else if (other.transform.tag == "Terrain")
+        else if (other.transform.tag == "Terrain" || other.transform.tag == "Ground")
         {
             SelfDestruct();
         }

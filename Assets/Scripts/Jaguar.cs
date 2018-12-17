@@ -10,7 +10,7 @@ public class Jaguar : MeleeEnemy {
     {
         agent = GetComponent<NavMeshAgent>();
         agent.destination = player.transform.position;
-        agent.speed *= 1.5f;
+        agent.speed *= 1.3f;
 
         attackDistance = 2.0f;
         hp = 5;

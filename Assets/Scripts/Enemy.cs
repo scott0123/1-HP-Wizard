@@ -12,12 +12,12 @@ public abstract class Enemy : MoveableObject {
 
 	// Use this for initialization
 	void Start () {
-		
+        frozen = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+        
 	}
 
     protected abstract void Move();
@@ -33,7 +33,7 @@ public abstract class Enemy : MoveableObject {
 
     protected abstract void Attack();
 
-    protected void Freeze(string source)
+    public void Freeze(string source)
     {
         frozen = 5.0f;
     }
