@@ -31,7 +31,7 @@ public class Tutorial : MonoBehaviour {
     string text9 = "Ice: medium cost, utility spell";
     string text10 = "Air: medium cost, defensive spell";
     string text11 = "Shield: medium cost, defensive spell";
-    string text12 = "Congratulations! You've passed the tutorial.";
+    string text12 = "Congratulations! You've passed the tutorial!";
     string text13 = "";
     string text14 = "";
     string text15 = "";
