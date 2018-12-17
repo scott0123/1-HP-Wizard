@@ -12,7 +12,7 @@ public class Bear : MeleeEnemy {
         agent.destination = player.transform.position;
 
         attackDistance = 4.0f;
-        hp = 10;
+        hp = 7;
     }
 	
 	// Update is called once per frame

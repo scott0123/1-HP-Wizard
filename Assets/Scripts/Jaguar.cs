@@ -13,7 +13,7 @@ public class Jaguar : MeleeEnemy {
         agent.speed *= 1.3f;
 
         attackDistance = 3.8f;
-        hp = 5;
+        hp = 3;
     }
 
     // Update is called once per frame

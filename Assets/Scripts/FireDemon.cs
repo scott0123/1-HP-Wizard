@@ -15,7 +15,7 @@ public class FireDemon : RangedEnemy {
 
         attackMode = false;
 
-        hp = 20;
+        hp = 10;
 
         attackDistance = 15.0f;
 
