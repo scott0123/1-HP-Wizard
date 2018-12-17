@@ -15,11 +15,12 @@ public class LevelScript : MonoBehaviour {
     protected double spawnTimer;
     private int wave;
 
-    private static int level = 3;
+    private static int level = 0;
 
     // Use this for initialization
     void Start () {
-        EnemyWizard.minionCount = -2;
+        if (level == 0)
+            EnemyWizard.minionCount = -2;
         spawnInterval = 10.0f;
         spawnTimer = spawnInterval;
         wave = 0;
@@ -35,16 +36,16 @@ public class LevelScript : MonoBehaviour {
 
             if (level == 1)
             {
-                SceneManager.LoadScene("Level1", LoadSceneMode.Single);
                 EnemyWizard.minionCount = 10; //arbitrary
+                SceneManager.LoadScene("EnemyTestScene", LoadSceneMode.Single);
             } else if (level == 2)
             {
-                SceneManager.LoadScene("Level2", LoadSceneMode.Single);
                 EnemyWizard.minionCount = 10; //arbitrary
+                SceneManager.LoadScene("Level2", LoadSceneMode.Single);
             } else
             {
-                SceneManager.LoadScene("Level2", LoadSceneMode.Single);
                 EnemyWizard.minionCount = 20; //arbitrary
+                SceneManager.LoadScene("Level2", LoadSceneMode.Single);
             }
         }
 
