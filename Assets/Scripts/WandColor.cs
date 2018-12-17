@@ -50,6 +50,6 @@ public class WandColor : MonoBehaviour {
     public static void updateIntensity(float manaPercent)
     {
         halo.intensity = Mathf.Pow(manaPercent, 2);
-        Debug.Log(halo.intensity);
+        //Debug.Log(halo.intensity);
     }
 }

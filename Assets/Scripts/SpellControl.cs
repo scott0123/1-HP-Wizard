@@ -17,6 +17,7 @@ public class SpellControl : MonoBehaviour {
     public GameObject lightningLine;
     public GameObject aimLine;
     public GameObject earthAim;
+    public GameObject groundPlane;
 
     public Text optionalUI;
 
@@ -298,9 +299,9 @@ public class SpellControl : MonoBehaviour {
         if (mana >= 10)
         {
             WandColor.updateColor("");
-            instance.GetComponent<LineRenderer>().material.color = new Color(1, 1, 0, 1);
+            //instance.GetComponent<LineRenderer>().material.color = new Color(1, 1, 0, 1);
             InvokeRepeating("InstantiateLightning", 0.0f, 0.15f);
-            InvokeRepeating("UpdateLightningLine", 0.0f, 0.01f);
+            //InvokeRepeating("UpdateLightningLine", 0.0f, 0.01f);
             Invoke("EndLightning", 3.0f);
             if (CastSound != null)
             {
@@ -342,19 +343,19 @@ public class SpellControl : MonoBehaviour {
 
     void ActivateShield()
     {
-        if (mana >= 5)
-        {
-            shield.transform.SendMessage("Activate");
-            
-            mana -= 5;
-            WandColor.updateIntensity(mana / 20.0f);
-        }
+        shield.transform.SendMessage("Activate");
     }
 
     void CastShield()
     {
-        shield.transform.SendMessage("Cast");
+        if (mana >= 5)
+        {
+            shield.transform.SendMessage("Cast");
 
-        primedSpell = "";
+            primedSpell = "";
+
+            mana -= 5;
+            WandColor.updateIntensity(mana / 20.0f);
+        }
     }
 }
