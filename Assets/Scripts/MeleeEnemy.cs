@@ -21,6 +21,7 @@ public class MeleeEnemy : Enemy {
         {
             if ((this.transform.position - player.transform.position).magnitude <= attackDistance)
             {
+                agent.destination = this.transform.position;
                 Attack();
             }
             agent.destination = player.transform.position;
