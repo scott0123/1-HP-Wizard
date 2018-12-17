@@ -4,11 +4,22 @@ using UnityEngine.SceneManagement;
 
 public class SpellMovement : MonoBehaviour {
 
-	private float speed;
+    public AudioClip spellClip;
+
+
+    private float speed;
 
     void Start()
     {
-		speed = 5.0f;
+        if (spellClip != null)
+        {
+            AudioSource.PlayClipAtPoint(spellClip, this.transform.position, 1.0f);
+        }
+        else
+        {
+            Debug.Log("You forgot to attach a sound to the Lightning spell!");
+        }
+        speed = 5.0f;
 		Invoke ("SelfDestruct", 10.0f);
 	}
     
