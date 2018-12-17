@@ -14,7 +14,6 @@ public class GestureCollector : MonoBehaviour {
     public GameObject gestureTrail;
     public string label;
     public Text ui;
-    public AudioSource spellStatus;
     public AudioClip spellSuccess;
     public AudioClip spellFailure;
 
@@ -139,10 +138,9 @@ public class GestureCollector : MonoBehaviour {
                 Debug.Log(recognizedGesture);
                 if(recognizedGesture == "Error"){
                     recognized = false;
-                    if (spellFailure != null && spellStatus != null)
+                    if (spellFailure != null)
                     {
-                        spellStatus.clip = spellFailure;
-                        spellStatus.Play();
+                        AudioSource.PlayClipAtPoint(spellFailure, this.transform.position, 1f);
                     }
                     else
                     {
@@ -156,10 +154,9 @@ public class GestureCollector : MonoBehaviour {
             sc.primedSpell = recognizedGesture;
             tr.startColor = new Color(0, 1, 0, 1);
             tr.endColor = new Color(0, 1, 0, 1);
-            if (spellSuccess != null && spellStatus != null)
+            if (spellSuccess != null)
             {
-                spellStatus.clip = spellFailure;
-                spellStatus.Play();
+                AudioSource.PlayClipAtPoint(spellSuccess, this.transform.position, 1f);
             }
             else
             {
