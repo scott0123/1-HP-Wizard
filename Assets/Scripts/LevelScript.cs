@@ -15,7 +15,7 @@ public class LevelScript : MonoBehaviour {
     protected double spawnTimer;
     private int wave;
 
-    public static int level = 2;
+    public static int level = -1;
 
     // Use this for initialization
     void Start () {
