@@ -11,7 +11,14 @@ public class IceMovement : MonoBehaviour
 
     void Start()
     {
-        AudioSource.PlayClipAtPoint(iceClip, this.transform.position, 1.0f);
+        if (iceClip != null)
+        {
+            AudioSource.PlayClipAtPoint(iceClip, this.transform.position, 1.0f);
+        }
+        else
+        {
+            Debug.Log("You forgot to attach a sound to the Ice spell!");
+        }
         speed = 5.0f;
         Invoke("SelfDestruct", 10.0f);
     }

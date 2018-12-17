@@ -9,7 +9,14 @@ public class LightningMovement : MonoBehaviour
 
     void Start()
     {
-        AudioSource.PlayClipAtPoint(lightningClip, this.transform.position, 1.0f);
+        if (lightningClip != null)
+        {
+            AudioSource.PlayClipAtPoint(lightningClip, this.transform.position, 1.0f);
+        }
+        else
+        {
+            Debug.Log("You forgot to attach a sound to the Lightning spell!");
+        }
         speed = 50.0f; ;
         Invoke("SelfDestruct", 10.0f);
     }

@@ -29,7 +29,14 @@ public class ShieldScript : MonoBehaviour {
 
     void Cast()
     {
-        AudioSource.PlayClipAtPoint(shieldClip, this.transform.position, 1.0f);
+        if (shieldClip != null)
+        {
+            AudioSource.PlayClipAtPoint(shieldClip, this.transform.position, 1.0f);
+        }
+        else
+        {
+            Debug.Log("You forgot to attach a sound to the Shield spell!");
+        }
         this.GetComponent<BoxCollider>().enabled = true;
         timeLeft = 20.0f;
         WandColor.updateColor("");

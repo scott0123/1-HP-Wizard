@@ -24,7 +24,14 @@ public class EarthMovement : MonoBehaviour
 
     void Cast()
     {
-        AudioSource.PlayClipAtPoint(earthClip, this.transform.position, 1.0f);
+        if (earthClip != null)
+        {
+            AudioSource.PlayClipAtPoint(earthClip, this.transform.position, 1.0f);
+        }
+        else
+        {
+            Debug.Log("You forgot to attach a sound to the Earth spell!");
+        }
         Color color = this.GetComponent<Renderer>().material.color;
         this.GetComponent<Renderer>().material.color = new Color(color.r, color.g, color.b, 1);
         this.transform.position += Vector3.down * 4.1f;

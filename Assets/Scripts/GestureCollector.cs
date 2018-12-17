@@ -139,7 +139,14 @@ public class GestureCollector : MonoBehaviour {
                 Debug.Log(recognizedGesture);
                 if(recognizedGesture == "Error"){
                     recognized = false;
-                    spellStatus.clip = spellFailure;
+                    if (spellFailure != null && spellStatus != null)
+                    {
+                        spellStatus.clip = spellFailure;
+                    }
+                    else
+                    {
+                        Debug.Log("You forgot to attach a sound for spell failure!");
+                    }
                 }
             }
         }
@@ -148,7 +155,14 @@ public class GestureCollector : MonoBehaviour {
             sc.primedSpell = recognizedGesture;
             tr.startColor = new Color(0, 1, 0, 1);
             tr.endColor = new Color(0, 1, 0, 1);
-            spellStatus.clip = spellSuccess;
+            if (spellSuccess != null && spellStatus != null)
+            {
+                spellStatus.clip = spellFailure;
+            }
+            else
+            {
+                Debug.Log("You forgot to attach a sound for spell success!");
+            }
         }
         spellStatus.Play();
         StartCoroutine(DestroyTrail(trail));

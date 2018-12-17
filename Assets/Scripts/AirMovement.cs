@@ -20,7 +20,14 @@ public class AirMovement : MonoBehaviour {
 
     void Cast()
     {
-        AudioSource.PlayClipAtPoint(airClip, this.transform.position, 1.0f);
+        if (airClip != null)
+        {
+            AudioSource.PlayClipAtPoint(airClip, this.transform.position, 1.0f);
+        }
+        else
+        {
+            Debug.Log("You forgot to attach a sound to the Air spell!");
+        }
         speed = 10.0f;
         Invoke("SelfDestruct", 10.0f);
     }

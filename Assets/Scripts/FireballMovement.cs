@@ -11,7 +11,14 @@ public class FireballMovement : MonoBehaviour
     float explodeTime = 0.2f;
     void Start()
     {
-        AudioSource.PlayClipAtPoint(fireballClip, this.transform.position, 1.0f);
+        if (fireballClip != null)
+        {
+            AudioSource.PlayClipAtPoint(fireballClip, this.transform.position, 1.0f);
+        }
+        else
+        {
+            Debug.Log("You forgot to attach a sound to the Fireball spell!");
+        }
         speed = 5.0f;
         Invoke("SelfDestruct", 10.0f);
     }
