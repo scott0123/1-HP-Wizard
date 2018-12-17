@@ -18,4 +18,18 @@ public class Bear : MeleeEnemy {
 	void Update () {
         Move();
     }
+    
+    protected override void Attack()
+    {
+        Animator ani = this.GetComponentInChildren<Animator>();
+        ani.SetTrigger("attack")
+        Invoke("KillPlayer", 0.8f)
+    }
+
+    void KillPlayer(){
+        
+        //End game round
+        Debug.Log("You Died.");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }
