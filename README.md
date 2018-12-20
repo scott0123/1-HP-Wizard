@@ -83,11 +83,17 @@ Select your build location.
 ![Air gesture](./Images/air_icon.png)
 ![Shield gesture](./Images/shield_icon.png)
 
+### Gesture Model Serving Architecture
+![Gesture Model Serving Architecture](./Images/GestureServingArchitecture.png)
+
 ### Gesture collection data sample
 3D representation of one of our earth gestures datasets.
+
+This is used to train the `Earth` Class in our model.
 ![Earth gesture 3d](./Images/earth.gif)
 
 3D representation of one of our erroneous gestures datasets.
+This is used to train the `Unknown` Class in our model.
 ![Error gesture 3d](./Images/Error.gif)
 
 ### Game Design Document
