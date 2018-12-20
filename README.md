@@ -30,7 +30,9 @@ Double click `1 HP Wizard.exe` from the folder from the previous step to start t
 
 ## In-game Pictures
 
+![1 HP Wizard Menu](./Images/demo1.png)
 
+![1 HP Wizard Level 1](./Images/demo2.png)
 
 ## Getting Started (Development)
 ### Prerequisites
