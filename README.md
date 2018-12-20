@@ -74,12 +74,12 @@ Select your build location.
 ![Hierarchy image](./Images/hierarchy.png)
 
 ### Spell gestures
-![Fireball gesture](./Images/fireball.png | width=100)
-![Lightning gesture](./Images/lightning.png | width=100)
-![Ice gesture](./Images/ice.png | width=100)
-![Earth gesture](./Images/earth.png | width=100)
-![Air gesture](./Images/air.png | width=100)
-![Shield gesture](./Images/shield.png | width=100)
+![Fireball gesture](./Images/fireball_icon.png)
+![Lightning gesture](./Images/lightning_icon.png)
+![Ice gesture](./Images/ice_icon.png)
+![Earth gesture](./Images/earth_icon.png)
+![Air gesture](./Images/air_icon.png)
+![Shield gesture](./Images/shield_icon.png)
 
 ### Game Design Document
 https://docs.google.com/document/d/1hs4El7qzT2vCHhaPN9zTqvtF0LksF_KemcwoVwB_Los/edit?usp=sharing
