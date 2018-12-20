@@ -83,6 +83,13 @@ Select your build location.
 ![Air gesture](./Images/air_icon.png)
 ![Shield gesture](./Images/shield_icon.png)
 
+### Gesture collection data sample
+3D representation of one of our earth gestures datasets.
+![Earth gesture 3d](./Images/earth.gif)
+
+3D representation of one of our erroneous gestures datasets.
+![Error gesture 3d](./Images/Error.gif)
+
 ### Game Design Document
 https://docs.google.com/document/d/1hs4El7qzT2vCHhaPN9zTqvtF0LksF_KemcwoVwB_Los/edit?usp=sharing
 
