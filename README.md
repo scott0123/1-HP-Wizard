@@ -86,6 +86,9 @@ Select your build location.
 ### Game Design Document
 https://docs.google.com/document/d/1hs4El7qzT2vCHhaPN9zTqvtF0LksF_KemcwoVwB_Los/edit?usp=sharing
 
+### Project initial proposal
+https://s3.us-east-2.amazonaws.com/scott-liu-storage/Project+Proposal+498.pdf
+
 ## Contact
 
 You may reach me at `1hpwizard@scott-liu.com` to inquire about this project.
