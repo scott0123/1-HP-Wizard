@@ -94,7 +94,7 @@ This is used to train the `Earth` Class in our model.
 
 3D representation of one of our erroneous gestures datasets.
 This is used to train the `Unknown` Class in our model.
-![Error gesture 3d](./Images/Error.gif)
+![Error gesture 3d](./Images/error.gif)
 
 ### Game Design Document
 https://docs.google.com/document/d/1hs4El7qzT2vCHhaPN9zTqvtF0LksF_KemcwoVwB_Los/edit?usp=sharing
