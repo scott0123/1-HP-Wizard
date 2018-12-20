@@ -28,6 +28,10 @@ The player will have to react quickly and strategically since it only takes one 
 
 Double click `1 HP Wizard.exe` from the folder from the previous step to start the game.
 
+## In-game Pictures
+
+
+
 ## Getting Started (Development)
 ### Prerequisites
 * Oculus (Software)
@@ -69,6 +73,13 @@ Select your build location.
 ### Class Hierarchy
 ![Hierarchy image](./Images/hierarchy.png)
 
+### Spell gestures
+![Fireball gesture](./Images/fireball.png | width=100)
+![Lightning gesture](./Images/lightning.png | width=100)
+![Ice gesture](./Images/ice.png | width=100)
+![Earth gesture](./Images/earth.png | width=100)
+![Air gesture](./Images/air.png | width=100)
+![Shield gesture](./Images/shield.png | width=100)
 
 ### Game Design Document
 https://docs.google.com/document/d/1hs4El7qzT2vCHhaPN9zTqvtF0LksF_KemcwoVwB_Los/edit?usp=sharing
