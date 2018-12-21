@@ -1,5 +1,7 @@
 # 1-HP-Wizard
 
+![1 HP Wizard Menu](./Images/Picture Title.png)
+
 ## Introduction
 1 HP Wizard is a multi-level, gesture-based, spellcasting game. In this game, the user stands in a stationary location and fends off waves of enemies homing in on their position. 
 
@@ -30,9 +32,7 @@ Double click `1 HP Wizard.exe` from the folder from the previous step to start t
 
 ## In-game Pictures
 
-![1 HP Wizard Menu](./Images/demo1.png)
-
-![1 HP Wizard Level 1](./Images/demo2.png)
+![1 HP Wizard Level 1](./Images/demo1.png)
 
 ## Getting Started (Development)
 ### Prerequisites
@@ -69,11 +69,16 @@ Select your build location.
 
 ## Design
 
-### Theme
-![Theme image](./Images/theme.png)
+### Scenes
 
-### Class Hierarchy
-![Hierarchy image](./Images/hierarchy.png)
+![1 HP Wizard Scene 1](./Images/scene1.png)
+![1 HP Wizard Scene 2](./Images/scene2.png)
+![1 HP Wizard Scene 3](./Images/scene3.png)
+
+### Modeling (Blender)
+
+![1 HP Wizard Inferno](./Images/inferno.gif)
+![1 HP Wizard Desert](./Images/desert.png)
 
 ### Spell gestures
 ![Fireball gesture](./Images/fireball_icon.png)
@@ -83,8 +88,12 @@ Select your build location.
 ![Air gesture](./Images/air_icon.png)
 ![Shield gesture](./Images/shield_icon.png)
 
-### Gesture Model Serving Architecture
-![Gesture Model Serving Architecture](./Images/GestureServingArchitecture.png)
+### Game Design Document
+https://docs.google.com/document/d/1hs4El7qzT2vCHhaPN9zTqvtF0LksF_KemcwoVwB_Los/edit?usp=sharing
+
+### Project initial proposal
+https://s3.us-east-2.amazonaws.com/scott-liu-storage/Project+Proposal+498.pdf
+
 
 ### Gesture collection data sample
 3D representation of one of our earth gestures datasets.
@@ -96,11 +105,15 @@ This is used to train the `Earth` Class in our model.
 This is used to train the `Unknown` Class in our model.
 ![Error gesture 3d](./Images/error.gif)
 
-### Game Design Document
-https://docs.google.com/document/d/1hs4El7qzT2vCHhaPN9zTqvtF0LksF_KemcwoVwB_Los/edit?usp=sharing
+### Gesture Model Serving Architecture
+![Gesture Model Serving Architecture](./Images/GestureServingArchitecture.png)
 
-### Project initial proposal
-https://s3.us-east-2.amazonaws.com/scott-liu-storage/Project+Proposal+498.pdf
+### Class Hierarchy
+![Hierarchy image](./Images/hierarchy.png)
+
+### Theme
+![Theme image](./Images/theme.png)
+
 
 ## Contact
 
