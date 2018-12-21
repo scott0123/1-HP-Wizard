@@ -1,6 +1,6 @@
 # 1-HP-Wizard
 
-![1 HP Wizard Menu](./Images/Picture Title.png)
+![1 HP Wizard Menu](./Images/Picture_Title.png)
 
 ## Introduction
 1 HP Wizard is a multi-level, gesture-based, spellcasting game. In this game, the user stands in a stationary location and fends off waves of enemies homing in on their position. 
