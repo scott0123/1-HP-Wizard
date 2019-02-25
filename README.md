@@ -7,6 +7,7 @@
 
 The player will have to react quickly and strategically since it only takes one hit to defeat them.
 
+**Notice: The server that this game runs its gesture recognition on has been shut down. You can contact me if you still wish to try this game out so we can work something out.**
 
 ## Getting Started (Just Playing)
 ### Prerequisites
