@@ -118,7 +118,7 @@ public class GestureCollector : MonoBehaviour {
         TrailRenderer tr = trail.GetComponent<TrailRenderer>();
         tr.emitting = false;
         String recognizedGesture = "";
-        String address = "http://gestures.christiaanh.org:5000";
+        String address = "http://predict.scott-liu.com/gesture";
         address += "/?gesture=";
         address += UnnamedGestureToJson(g);
         using (UnityWebRequest www = UnityWebRequest.Get(address))
